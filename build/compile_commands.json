@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/zhiyinpeng/Project/OJ/build",
+  "command": "/usr/bin/c++  -I/home/zhiyinpeng/Project/OJ/include -I/usr/include/mysql -std=gnu++11 -o CMakeFiles/oj_app.dir/src/db_manager.cpp.o -c /home/zhiyinpeng/Project/OJ/src/db_manager.cpp",
+  "file": "/home/zhiyinpeng/Project/OJ/src/db_manager.cpp",
+  "output": "CMakeFiles/oj_app.dir/src/db_manager.cpp.o"
+},
+{
+  "directory": "/home/zhiyinpeng/Project/OJ/build",
+  "command": "/usr/bin/c++  -I/home/zhiyinpeng/Project/OJ/include -I/usr/include/mysql -std=gnu++11 -o CMakeFiles/oj_app.dir/src/main.cpp.o -c /home/zhiyinpeng/Project/OJ/src/main.cpp",
+  "file": "/home/zhiyinpeng/Project/OJ/src/main.cpp",
+  "output": "CMakeFiles/oj_app.dir/src/main.cpp.o"
+}
+]

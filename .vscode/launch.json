@@ -1,0 +1,87 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "1 vscode编译运行",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/oj_app_vscode",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "vscode: Build (g++)",
+      "miDebuggerPath": "/usr/bin/gdb"
+    },
+    {
+      "name": "2 vscode依据上次编译结果运行",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/oj_app_vscode",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "miDebuggerPath": "/usr/bin/gdb"
+    },
+    {
+      "name": "3 cmake 编译运行",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/oj_app",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "CMake: Build",
+      "miDebuggerPath": "/usr/bin/gdb"
+    },
+    {
+      "name": "4 cmake不编译运行",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/oj_app",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "miDebuggerPath": "/usr/bin/gdb"
+    }
+  ]
+}

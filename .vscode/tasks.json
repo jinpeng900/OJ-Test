@@ -1,0 +1,53 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "CMake: Build",
+            "type": "shell",
+            "command": "cmake --build ${workspaceFolder}/build --parallel",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "使用 CMake 构建项目 (编译 cmake 生成文件)"
+        },
+        {
+            "label": "vscode: Build (g++)",
+            "type": "cppbuild",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${workspaceFolder}/src/main.cpp",
+                "${workspaceFolder}/src/db_manager.cpp",
+                "-I",
+                "${workspaceFolder}/include",
+                "-lmysqlclient",
+                "-o",
+                "${workspaceFolder}/build/oj_app_vscode"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "使用 vscode 直接通过 g++ 构建 (编译 vscode 生成文件)"
+        },
+        {
+            "label": "CMake: Configure",
+            "type": "shell",
+            "command": "cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": "build",
+            "problemMatcher": [],
+            "detail": "配置 CMake 项目。"
+        }
+    ]
+}
