@@ -8,8 +8,13 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/zhiyinpeng/Project/OJ/src/admin.cpp" "CMakeFiles/oj_app.dir/src/admin.cpp.o" "gcc" "CMakeFiles/oj_app.dir/src/admin.cpp.o.d"
+  "/home/zhiyinpeng/Project/OJ/src/admin_view.cpp" "CMakeFiles/oj_app.dir/src/admin_view.cpp.o" "gcc" "CMakeFiles/oj_app.dir/src/admin_view.cpp.o.d"
   "/home/zhiyinpeng/Project/OJ/src/db_manager.cpp" "CMakeFiles/oj_app.dir/src/db_manager.cpp.o" "gcc" "CMakeFiles/oj_app.dir/src/db_manager.cpp.o.d"
   "/home/zhiyinpeng/Project/OJ/src/main.cpp" "CMakeFiles/oj_app.dir/src/main.cpp.o" "gcc" "CMakeFiles/oj_app.dir/src/main.cpp.o.d"
+  "/home/zhiyinpeng/Project/OJ/src/user.cpp" "CMakeFiles/oj_app.dir/src/user.cpp.o" "gcc" "CMakeFiles/oj_app.dir/src/user.cpp.o.d"
+  "/home/zhiyinpeng/Project/OJ/src/user_view.cpp" "CMakeFiles/oj_app.dir/src/user_view.cpp.o" "gcc" "CMakeFiles/oj_app.dir/src/user_view.cpp.o.d"
+  "/home/zhiyinpeng/Project/OJ/src/view_manager.cpp" "CMakeFiles/oj_app.dir/src/view_manager.cpp.o" "gcc" "CMakeFiles/oj_app.dir/src/view_manager.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

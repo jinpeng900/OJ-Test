@@ -129,6 +129,54 @@ oj_app/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/build
 .PHONY : oj_app/fast
 
+src/admin.o: src/admin.cpp.o
+.PHONY : src/admin.o
+
+# target to build an object file
+src/admin.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/admin.cpp.o
+.PHONY : src/admin.cpp.o
+
+src/admin.i: src/admin.cpp.i
+.PHONY : src/admin.i
+
+# target to preprocess a source file
+src/admin.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/admin.cpp.i
+.PHONY : src/admin.cpp.i
+
+src/admin.s: src/admin.cpp.s
+.PHONY : src/admin.s
+
+# target to generate assembly for a file
+src/admin.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/admin.cpp.s
+.PHONY : src/admin.cpp.s
+
+src/admin_view.o: src/admin_view.cpp.o
+.PHONY : src/admin_view.o
+
+# target to build an object file
+src/admin_view.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/admin_view.cpp.o
+.PHONY : src/admin_view.cpp.o
+
+src/admin_view.i: src/admin_view.cpp.i
+.PHONY : src/admin_view.i
+
+# target to preprocess a source file
+src/admin_view.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/admin_view.cpp.i
+.PHONY : src/admin_view.cpp.i
+
+src/admin_view.s: src/admin_view.cpp.s
+.PHONY : src/admin_view.s
+
+# target to generate assembly for a file
+src/admin_view.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/admin_view.cpp.s
+.PHONY : src/admin_view.cpp.s
+
 src/db_manager.o: src/db_manager.cpp.o
 .PHONY : src/db_manager.o
 
@@ -177,6 +225,78 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/user.o: src/user.cpp.o
+.PHONY : src/user.o
+
+# target to build an object file
+src/user.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/user.cpp.o
+.PHONY : src/user.cpp.o
+
+src/user.i: src/user.cpp.i
+.PHONY : src/user.i
+
+# target to preprocess a source file
+src/user.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/user.cpp.i
+.PHONY : src/user.cpp.i
+
+src/user.s: src/user.cpp.s
+.PHONY : src/user.s
+
+# target to generate assembly for a file
+src/user.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/user.cpp.s
+.PHONY : src/user.cpp.s
+
+src/user_view.o: src/user_view.cpp.o
+.PHONY : src/user_view.o
+
+# target to build an object file
+src/user_view.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/user_view.cpp.o
+.PHONY : src/user_view.cpp.o
+
+src/user_view.i: src/user_view.cpp.i
+.PHONY : src/user_view.i
+
+# target to preprocess a source file
+src/user_view.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/user_view.cpp.i
+.PHONY : src/user_view.cpp.i
+
+src/user_view.s: src/user_view.cpp.s
+.PHONY : src/user_view.s
+
+# target to generate assembly for a file
+src/user_view.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/user_view.cpp.s
+.PHONY : src/user_view.cpp.s
+
+src/view_manager.o: src/view_manager.cpp.o
+.PHONY : src/view_manager.o
+
+# target to build an object file
+src/view_manager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/view_manager.cpp.o
+.PHONY : src/view_manager.cpp.o
+
+src/view_manager.i: src/view_manager.cpp.i
+.PHONY : src/view_manager.i
+
+# target to preprocess a source file
+src/view_manager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/view_manager.cpp.i
+.PHONY : src/view_manager.cpp.i
+
+src/view_manager.s: src/view_manager.cpp.s
+.PHONY : src/view_manager.s
+
+# target to generate assembly for a file
+src/view_manager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/view_manager.cpp.s
+.PHONY : src/view_manager.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -186,12 +306,27 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... oj_app"
+	@echo "... src/admin.o"
+	@echo "... src/admin.i"
+	@echo "... src/admin.s"
+	@echo "... src/admin_view.o"
+	@echo "... src/admin_view.i"
+	@echo "... src/admin_view.s"
 	@echo "... src/db_manager.o"
 	@echo "... src/db_manager.i"
 	@echo "... src/db_manager.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/user.o"
+	@echo "... src/user.i"
+	@echo "... src/user.s"
+	@echo "... src/user_view.o"
+	@echo "... src/user_view.i"
+	@echo "... src/user_view.s"
+	@echo "... src/view_manager.o"
+	@echo "... src/view_manager.i"
+	@echo "... src/view_manager.s"
 .PHONY : help
 
 

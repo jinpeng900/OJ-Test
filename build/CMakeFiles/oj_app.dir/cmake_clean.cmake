@@ -1,8 +1,18 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/oj_app.dir/src/admin.cpp.o"
+  "CMakeFiles/oj_app.dir/src/admin.cpp.o.d"
+  "CMakeFiles/oj_app.dir/src/admin_view.cpp.o"
+  "CMakeFiles/oj_app.dir/src/admin_view.cpp.o.d"
   "CMakeFiles/oj_app.dir/src/db_manager.cpp.o"
   "CMakeFiles/oj_app.dir/src/db_manager.cpp.o.d"
   "CMakeFiles/oj_app.dir/src/main.cpp.o"
   "CMakeFiles/oj_app.dir/src/main.cpp.o.d"
+  "CMakeFiles/oj_app.dir/src/user.cpp.o"
+  "CMakeFiles/oj_app.dir/src/user.cpp.o.d"
+  "CMakeFiles/oj_app.dir/src/user_view.cpp.o"
+  "CMakeFiles/oj_app.dir/src/user_view.cpp.o.d"
+  "CMakeFiles/oj_app.dir/src/view_manager.cpp.o"
+  "CMakeFiles/oj_app.dir/src/view_manager.cpp.o.d"
   "oj_app"
   "oj_app.pdb"
 )
