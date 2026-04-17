@@ -41,11 +41,6 @@ public:
      */
     std::vector<std::map<std::string, std::string>> query(const std::string &sql);
 
-    /**
-     * @brief 从文件中读取并执行多条 SQL 语句
-     */
-    void execute_sql_file(const std::string &filepath);
-
 private:
     MYSQL *conn;
 };

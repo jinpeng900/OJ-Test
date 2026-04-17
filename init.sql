@@ -83,11 +83,9 @@ CREATE USER IF NOT EXISTS 'oj_user' @'%' IDENTIFIED BY 'user123';
 -- 题目表：只读
 GRANT SELECT ON OJ.problems TO 'oj_user' @'%';
 
--- 用户表：可查询和修改自己的账户名、密码
+-- 用户表：可插入新用户、查询和修改自己的账户名、密码
 -- 注意：应用程序通过 WHERE id = current_user_id 实现行级隔离
-GRANT
-SELECT,
-UPDATE (account, password_hash) ON OJ.users TO 'oj_user' @'%';
+GRANT SELECT, INSERT , UPDATE ON OJ.users TO 'oj_user' @'%';
 
 -- 提交记录表：可插入新提交，查询自己的历史
 GRANT SELECT, INSERT ON OJ.submissions TO 'oj_user' @'%';
@@ -140,4 +138,6 @@ SELECT CONCAT(
         'Users created: oj_admin (full access), oj_user (limited access)'
     ) AS Info;
 
-SELECT CONCAT( 'Sample platform user: test_user / 123456' ) AS Sample;
+SELECT CONCAT(
+        'Sample platform user: test_user / 123456'
+    ) AS Sample;

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <limits>
 
+using namespace std;
+
 using namespace Color;
 
 UserView::UserView() : db_manager(nullptr), user_obj(nullptr) {}
@@ -11,21 +13,23 @@ UserView::~UserView() {}
 
 void UserView::clear_screen()
 {
-    std::cout << "\033[2J\033[H";
+    // 使用 ANSI 转义序列清屏并移动光标到左上角
+    cout << "\033[2J\033[3J\033[H";
+    cout.flush();
 }
 
 void UserView::start()
 {
     clear_screen();
-    std::cout << "🔑 正在进入用户模式并建立数据库连接..." << std::endl;
+    cout << "🔑 正在进入用户模式并建立数据库连接..." << endl;
 
     // 使用普通用户账号连接（受限权限）
-    db_manager = std::make_unique<DatabaseManager>("localhost", "oj_user", "user123", "OJ");
+    db_manager = make_unique<DatabaseManager>("localhost", "oj_user", "user123", "OJ");
 
     if (db_manager->get_connection())
     {
-        user_obj = std::unique_ptr<User>(new User(db_manager.get()));
-        std::cout << "✅ 成功连接数据库。" << std::endl;
+        user_obj = unique_ptr<User>(new User(db_manager.get()));
+        cout << "✅ 成功连接数据库。" << endl;
 
         bool running = true;
         while (running)
@@ -40,11 +44,11 @@ void UserView::start()
             }
 
             int choice;
-            std::cout << "\n请输入选项: ";
-            if (!(std::cin >> choice))
+            cout << "\n请输入选项: ";
+            if (!(cin >> choice))
             {
                 clear_input();
-                std::cout << "⚠️ 无效输入，请输入数字！" << std::endl;
+                cout << "⚠️ 无效输入，请输入数字！" << endl;
                 continue;
             }
             clear_input();
@@ -56,16 +60,21 @@ void UserView::start()
                 {
                 case 1:
                     handle_login();
+                    // 登录成功后清屏
+                    if (user_obj->is_logged_in())
+                    {
+                        clear_screen();
+                    }
                     break;
                 case 2:
                     handle_register();
                     break;
                 case 0:
-                    std::cout << "🔙 返回登录菜单..." << std::endl;
+                    cout << "🔙 返回登录菜单..." << endl;
                     running = false;
                     break;
                 default:
-                    std::cout << "⚠️ 无效选项。" << std::endl;
+                    cout << "⚠️ 无效选项。" << endl;
                 }
             }
             else
@@ -80,20 +89,17 @@ void UserView::start()
                     handle_view_problem();
                     break;
                 case 3:
-                    handle_submit_code();
-                    break;
-                case 4:
                     handle_view_submissions();
                     break;
-                case 5:
+                case 4:
                     handle_change_password();
                     break;
                 case 0:
-                    std::cout << "🔙 退出用户模式..." << std::endl;
+                    cout << "🔙 退出用户模式..." << endl;
                     running = false;
                     break;
                 default:
-                    std::cout << "⚠️ 无效选项。" << std::endl;
+                    cout << "⚠️ 无效选项。" << endl;
                 }
             }
         }
@@ -103,92 +109,159 @@ void UserView::start()
     }
     else
     {
-        std::cerr << "❌ 数据库连接失败。" << std::endl;
+        cerr << "❌ 数据库连接失败。" << endl;
         db_manager.reset();
     }
 }
 
 void UserView::show_guest_menu()
 {
-    std::cout << "\n"
-              << GREEN << "----------------------------------------" << RESET << std::endl;
-    std::cout << "       👤 用户模式 (未登录)" << std::endl;
-    std::cout << GREEN << "----------------------------------------" << RESET << std::endl;
-    std::cout << " 1. 登录" << std::endl;
-    std::cout << " 2. 注册新账号" << std::endl;
-    std::cout << " 0. 返回主菜单" << std::endl;
-    std::cout << GREEN << "----------------------------------------" << RESET << std::endl;
+    cout << "\n"
+         << GREEN << "----------------------------------------" << RESET << endl;
+    cout << "       👤 用户模式 (未登录)" << endl;
+    cout << GREEN << "----------------------------------------" << RESET << endl;
+    cout << " 1. 登录" << endl;
+    cout << " 2. 注册新账号" << endl;
+    cout << " 0. 返回主菜单" << endl;
+    cout << GREEN << "----------------------------------------" << RESET << endl;
 }
 
 void UserView::show_user_menu()
 {
-    std::cout << "\n"
-              << GREEN << "----------------------------------------" << RESET << std::endl;
-    std::cout << "       👤 用户模式 - " << user_obj->get_current_account() << std::endl;
-    std::cout << GREEN << "----------------------------------------" << RESET << std::endl;
-    std::cout << " 1. 查看题目列表" << std::endl;
-    std::cout << " 2. 查看题目详情" << std::endl;
-    std::cout << " 3. 提交代码 (C++)" << std::endl;
-    std::cout << " 4. 查看我的提交" << std::endl;
-    std::cout << " 5. 修改密码" << std::endl;
-    std::cout << " 0. 退出登录" << std::endl;
-    std::cout << GREEN << "----------------------------------------" << RESET << std::endl;
+    cout << "\n"
+         << GREEN << "----------------------------------------" << RESET << endl;
+    cout << "       👤 用户模式 - " << user_obj->get_current_account() << endl;
+    cout << GREEN << "----------------------------------------" << RESET << endl;
+    cout << " 1. 查看题目列表" << endl;
+    cout << " 2. 查看题目详情" << endl;
+    cout << " 3. 查看我的提交" << endl;
+    cout << " 4. 修改密码" << endl;
+    cout << " 0. 退出登录" << endl;
+    cout << GREEN << "----------------------------------------" << RESET << endl;
 }
 
 void UserView::handle_login()
 {
-    std::string account, password;
-    std::cout << "账号: ";
-    std::getline(std::cin, account);
-    std::cout << "密码: ";
-    std::getline(std::cin, password);
+    cout << "(输入 0 返回上一步)" << endl;
+
+    string account, password;
+    cout << "账号: ";
+    getline(cin, account);
+
+    // 检查是否返回
+    if (account == "0")
+    {
+        cout << "🔙 返回..." << endl;
+        return;
+    }
+
+    cout << "密码: ";
+    getline(cin, password);
+
+    if (password == "0")
+    {
+        cout << "🔙 返回..." << endl;
+        return;
+    }
+
     user_obj->login(account, password);
 }
 
 void UserView::handle_register()
 {
-    std::string account, password;
-    std::cout << "请输入新账号: ";
-    std::getline(std::cin, account);
-    std::cout << "请输入密码: ";
-    std::getline(std::cin, password);
+    cout << "(输入 0 返回上一步)" << endl;
+
+    string account, password;
+    cout << "请输入新账号: ";
+    getline(cin, account);
+
+    // 检查是否返回
+    if (account == "0")
+    {
+        cout << "🔙 返回..." << endl;
+        return;
+    }
+
+    cout << "请输入密码: ";
+    getline(cin, password);
+
+    if (password == "0")
+    {
+        cout << "🔙 返回..." << endl;
+        return;
+    }
+
     user_obj->register_user(account, password);
 }
 
 void UserView::handle_list_problems()
 {
+    clear_screen();
     user_obj->list_problems();
 }
 
 void UserView::handle_view_problem()
 {
     int id;
-    std::cout << "请输入题目 ID: ";
-    if (!(std::cin >> id))
+    cout << "请输入题目 ID (0 返回): ";
+    if (!(cin >> id))
     {
         clear_input();
-        std::cout << "⚠️ ID 必须是数字！" << std::endl;
+        cout << "⚠️ ID 必须是数字！" << endl;
         return;
     }
     clear_input();
-    user_obj->view_problem(id);
+
+    if (id == 0)
+    {
+        return;
+    }
+
+    // 进入题目详情子菜单
+    bool in_problem_menu = true;
+    while (in_problem_menu)
+    {
+        clear_screen();
+        user_obj->view_problem(id);
+
+        cout << GREEN << "---------- 操作选项 ----------" << RESET << endl;
+        cout << " 1. 提交代码" << endl;
+        cout << " 2. AI 助手" << endl;
+        cout << " 0. 返回用户模式" << endl;
+        cout << GREEN << "------------------------------" << RESET << endl;
+        cout << "请输入选项: ";
+
+        int choice;
+        if (!(cin >> choice))
+        {
+            clear_input();
+            cout << "⚠️ 无效输入！" << endl;
+            continue;
+        }
+        clear_input();
+
+        switch (choice)
+        {
+        case 1:
+            handle_submit_code_with_id(id);
+            break;
+        case 2:
+            handle_ai_assistant(id);
+            break;
+        case 0:
+            in_problem_menu = false;
+            break;
+        default:
+            cout << "⚠️ 无效选项。" << endl;
+        }
+    }
 }
 
-void UserView::handle_submit_code()
+void UserView::handle_submit_code_with_id(int problem_id)
 {
-    int problem_id;
-    std::cout << "请输入题目 ID: ";
-    if (!(std::cin >> problem_id))
-    {
-        clear_input();
-        std::cout << "⚠️ ID 必须是数字！" << std::endl;
-        return;
-    }
-    clear_input();
-
-    std::cout << "请输入 C++ 代码 (输入 END 结束):" << std::endl;
-    std::string code, line;
-    while (std::getline(std::cin, line))
+    cout << "请输入 C++ 代码 (输入 END 结束):" << endl;
+    string code, line;
+    while (getline(cin, line))
     {
         if (line == "END")
             break;
@@ -198,23 +271,53 @@ void UserView::handle_submit_code()
     user_obj->submit_code(problem_id, code, "C++");
 }
 
+void UserView::handle_ai_assistant(int problem_id)
+{
+    clear_screen();
+    cout << GREEN << "========== AI 助手 ==========" << RESET << endl;
+    cout << "题目 ID: " << problem_id << endl;
+    cout << "功能开发中..." << endl;
+    cout << GREEN << "=============================" << RESET << endl;
+    cout << "按回车键返回...";
+    cin.get();
+}
+
 void UserView::handle_view_submissions()
 {
+    clear_screen();
     user_obj->view_my_submissions();
 }
 
 void UserView::handle_change_password()
 {
-    std::string old_pwd, new_pwd;
-    std::cout << "请输入旧密码: ";
-    std::getline(std::cin, old_pwd);
-    std::cout << "请输入新密码: ";
-    std::getline(std::cin, new_pwd);
+    clear_screen();
+    cout << "(输入 0 返回上一步)" << endl;
+
+    string old_pwd, new_pwd;
+    cout << "请输入旧密码: ";
+    getline(cin, old_pwd);
+
+    // 检查是否返回
+    if (old_pwd == "0")
+    {
+        cout << "🔙 返回..." << endl;
+        return;
+    }
+
+    cout << "请输入新密码: ";
+    getline(cin, new_pwd);
+
+    if (new_pwd == "0")
+    {
+        cout << "🔙 返回..." << endl;
+        return;
+    }
+
     user_obj->change_my_password(old_pwd, new_pwd);
 }
 
 void UserView::clear_input()
 {
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }

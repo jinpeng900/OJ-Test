@@ -24,6 +24,11 @@ private:
     std::unique_ptr<Admin> admin_obj;
 
     /**
+     * @brief 清屏
+     */
+    void clear_screen();
+
+    /**
      * @brief 显示管理员菜单
      */
     void show_menu();

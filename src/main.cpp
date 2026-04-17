@@ -1,5 +1,7 @@
 #include "../include/view_manager.h"
 
+using namespace std;
+
 int main() {
     // 初始化可视化界面管理器
     ViewManager view;

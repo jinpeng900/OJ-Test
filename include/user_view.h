@@ -59,9 +59,16 @@ private:
     void handle_view_problem();
 
     /**
-     * @brief 处理提交代码
+     * @brief 处理提交代码（指定题目ID）
+     * @param problem_id 题目ID
      */
-    void handle_submit_code();
+    void handle_submit_code_with_id(int problem_id);
+
+    /**
+     * @brief 处理AI助手
+     * @param problem_id 题目ID
+     */
+    void handle_ai_assistant(int problem_id);
 
     /**
      * @brief 处理查看我的提交

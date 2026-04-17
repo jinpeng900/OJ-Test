@@ -188,6 +188,7 @@ oj_app: CMakeFiles/oj_app.dir/src/user.cpp.o
 oj_app: CMakeFiles/oj_app.dir/src/user_view.cpp.o
 oj_app: CMakeFiles/oj_app.dir/src/view_manager.cpp.o
 oj_app: CMakeFiles/oj_app.dir/build.make
+oj_app: /usr/lib/x86_64-linux-gnu/libcrypto.so
 oj_app: CMakeFiles/oj_app.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/zhiyinpeng/Project/OJ/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable oj_app"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/oj_app.dir/link.txt --verbose=$(VERBOSE)

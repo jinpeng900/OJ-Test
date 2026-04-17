@@ -11,11 +11,13 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # 1. 查找依赖
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(MYSQL mysqlclient REQUIRED)
+find_package(OpenSSL REQUIRED)
 
 # 2. 设置包含目录
 include_directories(
     include 
     ${MYSQL_INCLUDE_DIRS}
+    ${OPENSSL_INCLUDE_DIR}
 )
 
 # 3. 收集源文件
@@ -28,8 +30,10 @@ add_executable(oj_app ${SOURCES})
 target_link_libraries(oj_app 
     PRIVATE 
     ${MYSQL_LIBRARIES}
+    OpenSSL::Crypto
 )
 
 # 打印信息用于调试
 message(STATUS "Source files: ${SOURCES}")
 message(STATUS "MySQL libraries: ${MYSQL_LIBRARIES}")
+message(STATUS "OpenSSL libraries: ${OPENSSL_LIBRARIES}")
