@@ -201,6 +201,30 @@ src/ai_client.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/ai_client.cpp.s
 .PHONY : src/ai_client.cpp.s
 
+src/container_pool.o: src/container_pool.cpp.o
+.PHONY : src/container_pool.o
+
+# target to build an object file
+src/container_pool.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/container_pool.cpp.o
+.PHONY : src/container_pool.cpp.o
+
+src/container_pool.i: src/container_pool.cpp.i
+.PHONY : src/container_pool.i
+
+# target to preprocess a source file
+src/container_pool.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/container_pool.cpp.i
+.PHONY : src/container_pool.cpp.i
+
+src/container_pool.s: src/container_pool.cpp.s
+.PHONY : src/container_pool.s
+
+# target to generate assembly for a file
+src/container_pool.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/container_pool.cpp.s
+.PHONY : src/container_pool.cpp.s
+
 src/db_manager.o: src/db_manager.cpp.o
 .PHONY : src/db_manager.o
 
@@ -225,6 +249,30 @@ src/db_manager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/db_manager.cpp.s
 .PHONY : src/db_manager.cpp.s
 
+src/judge_core.o: src/judge_core.cpp.o
+.PHONY : src/judge_core.o
+
+# target to build an object file
+src/judge_core.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/judge_core.cpp.o
+.PHONY : src/judge_core.cpp.o
+
+src/judge_core.i: src/judge_core.cpp.i
+.PHONY : src/judge_core.i
+
+# target to preprocess a source file
+src/judge_core.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/judge_core.cpp.i
+.PHONY : src/judge_core.cpp.i
+
+src/judge_core.s: src/judge_core.cpp.s
+.PHONY : src/judge_core.s
+
+# target to generate assembly for a file
+src/judge_core.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/judge_core.cpp.s
+.PHONY : src/judge_core.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -248,6 +296,30 @@ src/main.s: src/main.cpp.s
 src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
+
+src/sandbox_container.o: src/sandbox_container.cpp.o
+.PHONY : src/sandbox_container.o
+
+# target to build an object file
+src/sandbox_container.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/sandbox_container.cpp.o
+.PHONY : src/sandbox_container.cpp.o
+
+src/sandbox_container.i: src/sandbox_container.cpp.i
+.PHONY : src/sandbox_container.i
+
+# target to preprocess a source file
+src/sandbox_container.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/sandbox_container.cpp.i
+.PHONY : src/sandbox_container.cpp.i
+
+src/sandbox_container.s: src/sandbox_container.cpp.s
+.PHONY : src/sandbox_container.s
+
+# target to generate assembly for a file
+src/sandbox_container.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/sandbox_container.cpp.s
+.PHONY : src/sandbox_container.cpp.s
 
 src/user.o: src/user.cpp.o
 .PHONY : src/user.o
@@ -339,12 +411,21 @@ help:
 	@echo "... src/ai_client.o"
 	@echo "... src/ai_client.i"
 	@echo "... src/ai_client.s"
+	@echo "... src/container_pool.o"
+	@echo "... src/container_pool.i"
+	@echo "... src/container_pool.s"
 	@echo "... src/db_manager.o"
 	@echo "... src/db_manager.i"
 	@echo "... src/db_manager.s"
+	@echo "... src/judge_core.o"
+	@echo "... src/judge_core.i"
+	@echo "... src/judge_core.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/sandbox_container.o"
+	@echo "... src/sandbox_container.i"
+	@echo "... src/sandbox_container.s"
 	@echo "... src/user.o"
 	@echo "... src/user.i"
 	@echo "... src/user.s"

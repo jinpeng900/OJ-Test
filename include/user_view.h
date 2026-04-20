@@ -61,7 +61,7 @@ private:
     void handle_view_problem();
 
     /**
-     * @brief 处理提交代码（指定题目ID）
+     * @brief 处理提交代码（读取 workspace/solution.cpp）
      * @param problem_id 题目ID
      */
     void handle_submit_code_with_id(int problem_id);

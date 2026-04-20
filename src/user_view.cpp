@@ -275,16 +275,16 @@ void UserView::handle_view_problem()
 
 void UserView::handle_submit_code_with_id(int problem_id)
 {
-    cout << "请输入 C++ 代码 (输入 END 结束):" << endl;
-    string code, line;
-    while (getline(cin, line))
+    string code = read_file("workspace/solution.cpp");
+    if (code.empty())
     {
-        if (line == "END")
-            break;
-        code += line + "\n";
+        cout << RED << "❗ workspace/solution.cpp 为空或不存在，请先编写代码。" << RESET << endl;
+        return;
     }
-
+    cout << "✅ 已读取 workspace/solution.cpp（" << code.size() << " 字节）" << endl;
     user_obj->submit_code(problem_id, code, "C++");
+    cout << "\n按回车键返回...";
+    cin.get();
 }
 
 void UserView::handle_ai_assistant(int problem_id)
@@ -303,7 +303,7 @@ void UserView::handle_ai_assistant(int problem_id)
     // 读取工作区代码
     string code = read_file("workspace/solution.cpp");
 
-    // 查询题目详情
+    // 查询当前题目详情
     string problem_info = "题目ID: " + to_string(problem_id);
     string sql = "SELECT title, description, time_limit, memory_limit FROM problems WHERE id = " + to_string(problem_id);
     auto results = db_manager->query(sql);
@@ -348,6 +348,21 @@ void UserView::handle_ai_assistant(int problem_id)
 
         // 调用 AI，传入代码和题目信息
         string response = ai_client->ask(question, code, problem_info);
+
+        // 检测 AI 是否请求题库数据（推荐题目场景）
+        if (response.find("[NEED_PROBLEMS]") != string::npos)
+        {
+            // 按需加载题库列表
+            string context_with_list = problem_info + "\n\n【题库列表】\n";
+            string list_sql = "SELECT id, title, category, description FROM problems ORDER BY id";
+            auto all_problems = db_manager->query(list_sql);
+            for (const auto &p : all_problems)
+            {
+                context_with_list += "题号:" + p.at("id") + " | 标题:" + p.at("title") + " | 类别:" + p.at("category") + " | 描述:" + p.at("description").substr(0, 80) + "\n";
+            }
+            // 携带题库数据重新调用 AI
+            response = ai_client->ask(question, code, context_with_list);
+        }
 
         cout << GREEN << "AI> " << RESET << response << endl;
     }

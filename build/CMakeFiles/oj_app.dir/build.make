@@ -111,10 +111,24 @@ CMakeFiles/oj_app.dir/src/ai_client.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/oj_app.dir/src/ai_client.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zhiyinpeng/Project/OJ/src/ai_client.cpp -o CMakeFiles/oj_app.dir/src/ai_client.cpp.s
 
+CMakeFiles/oj_app.dir/src/container_pool.cpp.o: CMakeFiles/oj_app.dir/flags.make
+CMakeFiles/oj_app.dir/src/container_pool.cpp.o: /home/zhiyinpeng/Project/OJ/src/container_pool.cpp
+CMakeFiles/oj_app.dir/src/container_pool.cpp.o: CMakeFiles/oj_app.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zhiyinpeng/Project/OJ/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/oj_app.dir/src/container_pool.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/oj_app.dir/src/container_pool.cpp.o -MF CMakeFiles/oj_app.dir/src/container_pool.cpp.o.d -o CMakeFiles/oj_app.dir/src/container_pool.cpp.o -c /home/zhiyinpeng/Project/OJ/src/container_pool.cpp
+
+CMakeFiles/oj_app.dir/src/container_pool.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/oj_app.dir/src/container_pool.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/zhiyinpeng/Project/OJ/src/container_pool.cpp > CMakeFiles/oj_app.dir/src/container_pool.cpp.i
+
+CMakeFiles/oj_app.dir/src/container_pool.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/oj_app.dir/src/container_pool.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zhiyinpeng/Project/OJ/src/container_pool.cpp -o CMakeFiles/oj_app.dir/src/container_pool.cpp.s
+
 CMakeFiles/oj_app.dir/src/db_manager.cpp.o: CMakeFiles/oj_app.dir/flags.make
 CMakeFiles/oj_app.dir/src/db_manager.cpp.o: /home/zhiyinpeng/Project/OJ/src/db_manager.cpp
 CMakeFiles/oj_app.dir/src/db_manager.cpp.o: CMakeFiles/oj_app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zhiyinpeng/Project/OJ/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/oj_app.dir/src/db_manager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zhiyinpeng/Project/OJ/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/oj_app.dir/src/db_manager.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/oj_app.dir/src/db_manager.cpp.o -MF CMakeFiles/oj_app.dir/src/db_manager.cpp.o.d -o CMakeFiles/oj_app.dir/src/db_manager.cpp.o -c /home/zhiyinpeng/Project/OJ/src/db_manager.cpp
 
 CMakeFiles/oj_app.dir/src/db_manager.cpp.i: cmake_force
@@ -125,10 +139,24 @@ CMakeFiles/oj_app.dir/src/db_manager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/oj_app.dir/src/db_manager.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zhiyinpeng/Project/OJ/src/db_manager.cpp -o CMakeFiles/oj_app.dir/src/db_manager.cpp.s
 
+CMakeFiles/oj_app.dir/src/judge_core.cpp.o: CMakeFiles/oj_app.dir/flags.make
+CMakeFiles/oj_app.dir/src/judge_core.cpp.o: /home/zhiyinpeng/Project/OJ/src/judge_core.cpp
+CMakeFiles/oj_app.dir/src/judge_core.cpp.o: CMakeFiles/oj_app.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zhiyinpeng/Project/OJ/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/oj_app.dir/src/judge_core.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/oj_app.dir/src/judge_core.cpp.o -MF CMakeFiles/oj_app.dir/src/judge_core.cpp.o.d -o CMakeFiles/oj_app.dir/src/judge_core.cpp.o -c /home/zhiyinpeng/Project/OJ/src/judge_core.cpp
+
+CMakeFiles/oj_app.dir/src/judge_core.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/oj_app.dir/src/judge_core.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/zhiyinpeng/Project/OJ/src/judge_core.cpp > CMakeFiles/oj_app.dir/src/judge_core.cpp.i
+
+CMakeFiles/oj_app.dir/src/judge_core.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/oj_app.dir/src/judge_core.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zhiyinpeng/Project/OJ/src/judge_core.cpp -o CMakeFiles/oj_app.dir/src/judge_core.cpp.s
+
 CMakeFiles/oj_app.dir/src/main.cpp.o: CMakeFiles/oj_app.dir/flags.make
 CMakeFiles/oj_app.dir/src/main.cpp.o: /home/zhiyinpeng/Project/OJ/src/main.cpp
 CMakeFiles/oj_app.dir/src/main.cpp.o: CMakeFiles/oj_app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zhiyinpeng/Project/OJ/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/oj_app.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zhiyinpeng/Project/OJ/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/oj_app.dir/src/main.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/oj_app.dir/src/main.cpp.o -MF CMakeFiles/oj_app.dir/src/main.cpp.o.d -o CMakeFiles/oj_app.dir/src/main.cpp.o -c /home/zhiyinpeng/Project/OJ/src/main.cpp
 
 CMakeFiles/oj_app.dir/src/main.cpp.i: cmake_force
@@ -139,10 +167,24 @@ CMakeFiles/oj_app.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/oj_app.dir/src/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zhiyinpeng/Project/OJ/src/main.cpp -o CMakeFiles/oj_app.dir/src/main.cpp.s
 
+CMakeFiles/oj_app.dir/src/sandbox_container.cpp.o: CMakeFiles/oj_app.dir/flags.make
+CMakeFiles/oj_app.dir/src/sandbox_container.cpp.o: /home/zhiyinpeng/Project/OJ/src/sandbox_container.cpp
+CMakeFiles/oj_app.dir/src/sandbox_container.cpp.o: CMakeFiles/oj_app.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zhiyinpeng/Project/OJ/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/oj_app.dir/src/sandbox_container.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/oj_app.dir/src/sandbox_container.cpp.o -MF CMakeFiles/oj_app.dir/src/sandbox_container.cpp.o.d -o CMakeFiles/oj_app.dir/src/sandbox_container.cpp.o -c /home/zhiyinpeng/Project/OJ/src/sandbox_container.cpp
+
+CMakeFiles/oj_app.dir/src/sandbox_container.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/oj_app.dir/src/sandbox_container.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/zhiyinpeng/Project/OJ/src/sandbox_container.cpp > CMakeFiles/oj_app.dir/src/sandbox_container.cpp.i
+
+CMakeFiles/oj_app.dir/src/sandbox_container.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/oj_app.dir/src/sandbox_container.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zhiyinpeng/Project/OJ/src/sandbox_container.cpp -o CMakeFiles/oj_app.dir/src/sandbox_container.cpp.s
+
 CMakeFiles/oj_app.dir/src/user.cpp.o: CMakeFiles/oj_app.dir/flags.make
 CMakeFiles/oj_app.dir/src/user.cpp.o: /home/zhiyinpeng/Project/OJ/src/user.cpp
 CMakeFiles/oj_app.dir/src/user.cpp.o: CMakeFiles/oj_app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zhiyinpeng/Project/OJ/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/oj_app.dir/src/user.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zhiyinpeng/Project/OJ/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/oj_app.dir/src/user.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/oj_app.dir/src/user.cpp.o -MF CMakeFiles/oj_app.dir/src/user.cpp.o.d -o CMakeFiles/oj_app.dir/src/user.cpp.o -c /home/zhiyinpeng/Project/OJ/src/user.cpp
 
 CMakeFiles/oj_app.dir/src/user.cpp.i: cmake_force
@@ -156,7 +198,7 @@ CMakeFiles/oj_app.dir/src/user.cpp.s: cmake_force
 CMakeFiles/oj_app.dir/src/user_view.cpp.o: CMakeFiles/oj_app.dir/flags.make
 CMakeFiles/oj_app.dir/src/user_view.cpp.o: /home/zhiyinpeng/Project/OJ/src/user_view.cpp
 CMakeFiles/oj_app.dir/src/user_view.cpp.o: CMakeFiles/oj_app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zhiyinpeng/Project/OJ/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/oj_app.dir/src/user_view.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zhiyinpeng/Project/OJ/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/oj_app.dir/src/user_view.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/oj_app.dir/src/user_view.cpp.o -MF CMakeFiles/oj_app.dir/src/user_view.cpp.o.d -o CMakeFiles/oj_app.dir/src/user_view.cpp.o -c /home/zhiyinpeng/Project/OJ/src/user_view.cpp
 
 CMakeFiles/oj_app.dir/src/user_view.cpp.i: cmake_force
@@ -170,7 +212,7 @@ CMakeFiles/oj_app.dir/src/user_view.cpp.s: cmake_force
 CMakeFiles/oj_app.dir/src/view_manager.cpp.o: CMakeFiles/oj_app.dir/flags.make
 CMakeFiles/oj_app.dir/src/view_manager.cpp.o: /home/zhiyinpeng/Project/OJ/src/view_manager.cpp
 CMakeFiles/oj_app.dir/src/view_manager.cpp.o: CMakeFiles/oj_app.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zhiyinpeng/Project/OJ/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/oj_app.dir/src/view_manager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/zhiyinpeng/Project/OJ/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/oj_app.dir/src/view_manager.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/oj_app.dir/src/view_manager.cpp.o -MF CMakeFiles/oj_app.dir/src/view_manager.cpp.o.d -o CMakeFiles/oj_app.dir/src/view_manager.cpp.o -c /home/zhiyinpeng/Project/OJ/src/view_manager.cpp
 
 CMakeFiles/oj_app.dir/src/view_manager.cpp.i: cmake_force
@@ -186,8 +228,11 @@ oj_app_OBJECTS = \
 "CMakeFiles/oj_app.dir/src/admin.cpp.o" \
 "CMakeFiles/oj_app.dir/src/admin_view.cpp.o" \
 "CMakeFiles/oj_app.dir/src/ai_client.cpp.o" \
+"CMakeFiles/oj_app.dir/src/container_pool.cpp.o" \
 "CMakeFiles/oj_app.dir/src/db_manager.cpp.o" \
+"CMakeFiles/oj_app.dir/src/judge_core.cpp.o" \
 "CMakeFiles/oj_app.dir/src/main.cpp.o" \
+"CMakeFiles/oj_app.dir/src/sandbox_container.cpp.o" \
 "CMakeFiles/oj_app.dir/src/user.cpp.o" \
 "CMakeFiles/oj_app.dir/src/user_view.cpp.o" \
 "CMakeFiles/oj_app.dir/src/view_manager.cpp.o"
@@ -198,15 +243,18 @@ oj_app_EXTERNAL_OBJECTS =
 oj_app: CMakeFiles/oj_app.dir/src/admin.cpp.o
 oj_app: CMakeFiles/oj_app.dir/src/admin_view.cpp.o
 oj_app: CMakeFiles/oj_app.dir/src/ai_client.cpp.o
+oj_app: CMakeFiles/oj_app.dir/src/container_pool.cpp.o
 oj_app: CMakeFiles/oj_app.dir/src/db_manager.cpp.o
+oj_app: CMakeFiles/oj_app.dir/src/judge_core.cpp.o
 oj_app: CMakeFiles/oj_app.dir/src/main.cpp.o
+oj_app: CMakeFiles/oj_app.dir/src/sandbox_container.cpp.o
 oj_app: CMakeFiles/oj_app.dir/src/user.cpp.o
 oj_app: CMakeFiles/oj_app.dir/src/user_view.cpp.o
 oj_app: CMakeFiles/oj_app.dir/src/view_manager.cpp.o
 oj_app: CMakeFiles/oj_app.dir/build.make
 oj_app: /usr/lib/x86_64-linux-gnu/libcrypto.so
 oj_app: CMakeFiles/oj_app.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/zhiyinpeng/Project/OJ/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable oj_app"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/zhiyinpeng/Project/OJ/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable oj_app"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/oj_app.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
