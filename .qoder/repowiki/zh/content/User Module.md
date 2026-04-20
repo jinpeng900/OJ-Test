@@ -19,6 +19,15 @@
 - [CMakeLists.txt](file://CMakeLists.txt)
 </cite>
 
+## 更新摘要
+**所做更改**
+- 更新了用户认证系统功能描述，包含完整的注册、登录、密码修改流程
+- 新增了SHA256密码哈希实现的详细分析
+- 新增了子菜单功能的架构设计和实现细节
+- 新增了代码提交和AI助手基础功能的技术规范
+- 更新了数据库表结构和权限设计说明
+- 完善了依赖关系和性能考虑章节
+
 ## 目录
 1. [简介](#简介)
 2. [项目结构](#项目结构)
@@ -33,6 +42,8 @@
 ## 简介
 
 用户模块是OJ在线判题系统的核心功能模块之一，主要负责处理普通用户的业务逻辑。该模块实现了用户认证、题目浏览、代码提交、提交记录查看等核心功能，为用户提供完整的在线编程练习体验。
+
+**更新** v0.2版本引入了完整的用户认证系统，包括注册、登录、密码修改功能，并新增了子菜单架构、代码提交和AI助手基础功能。
 
 系统采用分层架构设计，通过清晰的职责分离实现了良好的可维护性和扩展性。用户模块与数据库管理层紧密协作，通过统一的数据库管理接口访问底层数据存储。
 
@@ -82,8 +93,12 @@ DBM --> DB
 ### 用户类 (User)
 用户类是用户模块的核心业务逻辑类，负责处理所有用户相关的操作。它提供了完整的用户生命周期管理功能，包括身份验证、账户管理和日常操作。
 
+**更新** 新增了完整的用户认证方法：`login()`、`register_user()`、`change_my_password()`，以及题目浏览、代码提交、提交记录查看等核心功能。
+
 ### 用户界面类 (UserView)
 用户界面类负责处理用户交互逻辑，提供友好的命令行界面。它管理用户菜单显示、输入验证和操作流程控制。
+
+**更新** 新增了子菜单架构，支持题目详情页面的二级菜单：提交代码、AI助手等功能。
 
 ### 数据库管理类 (DatabaseManager)
 数据库管理类封装了所有数据库操作，提供统一的数据库访问接口。它处理连接管理、SQL执行和结果处理等底层细节。
@@ -92,10 +107,10 @@ DBM --> DB
 视图管理器作为系统的入口点，协调不同角色的用户界面启动和切换。
 
 **章节来源**
-- [user.h:10-86](file://include/user.h#L10-L86)
-- [user_view.h:11-80](file://include/user_view.h#L11-L80)
-- [db_manager.h:12-51](file://include/db_manager.h#L12-L51)
-- [view_manager.h:11-40](file://include/view_manager.h#L11-L40)
+- [user.h:10-89](file://include/user.h#L10-L89)
+- [user_view.h:11-90](file://include/user_view.h#L11-L90)
+- [db_manager.h:12-53](file://include/db_manager.h#L12-L53)
+- [view_manager.h:11-43](file://include/view_manager.h#L11-L43)
 
 ## 架构概览
 
@@ -132,9 +147,9 @@ end
 ```
 
 **图表来源**
-- [user_view.cpp:17-109](file://src/user_view.cpp#L17-L109)
-- [user.cpp:42-78](file://src/user.cpp#L42-L78)
-- [db_manager.cpp:22-58](file://src/db_manager.cpp#L22-L58)
+- [user_view.cpp:21-115](file://src/user_view.cpp#L21-L115)
+- [user.cpp:39-137](file://src/user.cpp#L39-L137)
+- [db_manager.cpp:21-57](file://src/db_manager.cpp#L21-L57)
 
 系统架构的关键特点：
 
@@ -181,8 +196,8 @@ User --> DatabaseManager : 使用
 ```
 
 **图表来源**
-- [user.h:10-86](file://include/user.h#L10-L86)
-- [db_manager.h:12-51](file://include/db_manager.h#L12-L51)
+- [user.h:10-89](file://include/user.h#L10-L89)
+- [db_manager.h:12-53](file://include/db_manager.h#L12-L53)
 
 #### 登录流程分析
 
@@ -217,12 +232,14 @@ end
 ```
 
 **图表来源**
-- [user.cpp:42-78](file://src/user.cpp#L42-L78)
-- [db_manager.cpp:22-58](file://src/db_manager.cpp#L22-L58)
+- [user.cpp:39-71](file://src/user.cpp#L39-L71)
+- [db_manager.cpp:26-57](file://src/db_manager.cpp#L26-L57)
 
 #### 密码哈希实现
 
 系统使用SHA256算法对用户密码进行安全哈希存储：
+
+**更新** 新增了完整的SHA256哈希实现，使用OpenSSL库进行加密处理：
 
 | 特性 | 描述 |
 |------|------|
@@ -230,14 +247,17 @@ end
 | 输出长度 | 64字符十六进制字符串 |
 | 存储格式 | 直接存储哈希值 |
 | 验证方式 | 输入密码哈希后比较 |
+| 库依赖 | OpenSSL::Crypto |
 
 **章节来源**
-- [user.cpp:8-40](file://src/user.cpp#L8-L40)
-- [user.cpp:42-78](file://src/user.cpp#L42-L78)
+- [user.cpp:13-37](file://src/user.cpp#L13-L37)
+- [user.cpp:39-71](file://src/user.cpp#L39-L71)
 
 ### 用户界面类详细分析
 
 用户界面类负责处理所有用户交互逻辑，提供了完整的命令行界面：
+
+**更新** 新增了子菜单架构，支持更复杂的用户操作流程：
 
 ```mermaid
 flowchart TD
@@ -259,35 +279,39 @@ ShowUserMenu --> GetChoice2[获取用户选择]
 GetChoice2 --> ProcessChoice2{处理选择}
 ProcessChoice2 --> |查看题目| HandleListProblems[处理查看题目]
 ProcessChoice2 --> |查看详情| HandleViewProblem[处理查看详情]
-ProcessChoice2 --> |提交代码| HandleSubmitCode[处理提交代码]
 ProcessChoice2 --> |查看提交| HandleViewSubmissions[处理查看提交]
 ProcessChoice2 --> |修改密码| HandleChangePassword[处理修改密码]
 ProcessChoice2 --> |退出| End
 HandleLogin --> Loop
 HandleRegister --> Loop
 HandleListProblems --> Loop
-HandleViewProblem --> Loop
-HandleSubmitCode --> Loop
+HandleViewProblem --> ProblemMenu[进入题目详情子菜单]
+ProblemMenu --> SubmitCode[提交代码]
+ProblemMenu --> AIAssistant[AI助手]
+ProblemMenu --> BackToUser[返回用户菜单]
 HandleViewSubmissions --> Loop
 HandleChangePassword --> Loop
 ```
 
 **图表来源**
-- [user_view.cpp:17-109](file://src/user_view.cpp#L17-L109)
-- [user_view.cpp:138-214](file://src/user_view.cpp#L138-L214)
+- [user_view.cpp:21-115](file://src/user_view.cpp#L21-L115)
+- [user_view.cpp:220-258](file://src/user_view.cpp#L220-L258)
 
 #### 菜单系统设计
 
 用户界面提供了两套菜单系统，根据用户的登录状态动态切换：
 
+**更新** 新增了题目详情子菜单，支持提交代码和AI助手功能：
+
 | 菜单类型 | 功能选项 | 适用场景 |
 |----------|----------|----------|
 | 访客菜单 | 登录、注册、返回 | 未登录用户 |
-| 用户菜单 | 查看题目、查看详情、提交代码、查看提交、修改密码、退出 | 已登录用户 |
+| 用户菜单 | 查看题目、查看详情、查看提交、修改密码、退出 | 已登录用户 |
+| 题目详情子菜单 | 提交代码、AI助手、返回 | 查看题目详情时 |
 
 **章节来源**
-- [user_view.cpp:111-136](file://src/user_view.cpp#L111-L136)
-- [user_view.cpp:138-214](file://src/user_view.cpp#L138-L214)
+- [user_view.cpp:117-141](file://src/user_view.cpp#L117-L141)
+- [user_view.cpp:220-258](file://src/user_view.cpp#L220-L258)
 
 ### 数据库管理类详细分析
 
@@ -311,7 +335,7 @@ DatabaseManager --> MYSQL : 管理连接
 ```
 
 **图表来源**
-- [db_manager.h:12-51](file://include/db_manager.h#L12-L51)
+- [db_manager.h:12-53](file://include/db_manager.h#L12-L53)
 
 #### SQL执行流程
 
@@ -321,8 +345,8 @@ DatabaseManager --> MYSQL : 管理连接
 2. **执行操作 (run_sql)**: 执行DDL/DML语句，返回执行状态
 
 **章节来源**
-- [db_manager.cpp:22-58](file://src/db_manager.cpp#L22-L58)
-- [db_manager.cpp:126-175](file://src/db_manager.cpp#L126-L175)
+- [db_manager.cpp:21-57](file://src/db_manager.cpp#L21-L57)
+- [db_manager.cpp:81-99](file://src/db_manager.cpp#L81-L99)
 
 ## 依赖关系分析
 
@@ -368,7 +392,7 @@ VM --> CC
 ```
 
 **图表来源**
-- [CMakeLists.txt:11-31](file://CMakeLists.txt#L11-L31)
+- [CMakeLists.txt:11-34](file://CMakeLists.txt#L11-L34)
 - [user.cpp:1-6](file://src/user.cpp#L1-L6)
 - [admin_view.cpp:1-6](file://src/admin_view.cpp#L1-L6)
 
@@ -391,12 +415,12 @@ UV-->>VM : 返回UserView对象
 ```
 
 **图表来源**
-- [user_view.cpp:23-28](file://src/user_view.cpp#L23-L28)
-- [user.cpp](file://src/user.cpp#L6)
+- [user_view.cpp:31-31](file://src/user_view.cpp#L31)
+- [user.cpp:11](file://src/user.cpp#L11)
 
 **章节来源**
-- [CMakeLists.txt:11-31](file://CMakeLists.txt#L11-L31)
-- [user_view.cpp:23-28](file://src/user_view.cpp#L23-L28)
+- [CMakeLists.txt:11-34](file://CMakeLists.txt#L11-L34)
+- [user_view.cpp:31-31](file://src/user_view.cpp#L31)
 
 ## 性能考虑
 
@@ -416,6 +440,11 @@ UV-->>VM : 返回UserView对象
 - 早期失败检测，避免不必要的计算
 - 缓存查询结果，减少重复查询
 - 异常安全的代码设计
+
+**更新** 新增了SHA256哈希计算的性能考虑：
+- OpenSSL库的高效加密实现
+- 哈希计算的CPU开销评估
+- 批量操作的优化策略
 
 ## 故障排除指南
 
@@ -456,24 +485,40 @@ UV-->>VM : 返回UserView对象
 2. 验证行级安全策略
 3. 重新配置权限
 
+**更新** 新增了SHA256哈希相关问题的排查：
+- OpenSSL库加载失败
+- 哈希计算异常
+- 密码存储格式不匹配
+
 **章节来源**
-- [user_view.cpp:104-108](file://src/user_view.cpp#L104-L108)
-- [user.cpp:51-55](file://src/user.cpp#L51-L55)
-- [db_manager.cpp:115-124](file://src/db_manager.cpp#L115-L124)
+- [user_view.cpp:111-115](file://src/user_view.cpp#L111-L115)
+- [user.cpp:47-50](file://src/user.cpp#L47-L50)
+- [db_manager.cpp:32-36](file://src/db_manager.cpp#L32-L36)
 
 ## 结论
 
 用户模块作为OJ系统的核心功能模块，展现了优秀的软件工程实践。通过清晰的分层架构、明确的职责分离和完善的错误处理机制，实现了稳定可靠的功能特性。
 
-模块的主要优势包括：
+**更新** v0.2版本的重大改进包括：
 
+### 主要优势
 1. **架构清晰**: 三层架构设计确保了良好的可维护性
 2. **安全性强**: 采用SHA256密码哈希和行级权限控制
 3. **用户体验好**: 友好的命令行界面和完整的功能覆盖
 4. **扩展性强**: 模块化设计便于功能扩展和维护
+5. **功能完整**: 新增子菜单架构、代码提交和AI助手基础功能
 
-未来可以考虑的改进方向：
-- 实现完整的题目列表和详情功能
-- 添加代码提交评测机制
-- 增强错误处理和日志记录
+### 技术亮点
+- **完整的用户认证系统**: 注册、登录、密码修改一体化
+- **安全的密码存储**: SHA256哈希算法确保数据安全
+- **灵活的菜单架构**: 支持多级子菜单的用户界面设计
+- **可扩展的基础功能**: 为后续功能开发预留接口
+
+### 未来发展方向
+- 实现完整的代码提交评测机制
+- 开发AI助手的智能化功能
 - 优化数据库查询性能
+- 增强错误处理和日志记录
+- 扩展用户权限管理功能
+
+用户模块的设计充分体现了现代软件工程的最佳实践，为OJ系统的持续发展奠定了坚实的技术基础。
