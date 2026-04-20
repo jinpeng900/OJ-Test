@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/oj_app.dir/src/admin.cpp.o.d"
   "CMakeFiles/oj_app.dir/src/admin_view.cpp.o"
   "CMakeFiles/oj_app.dir/src/admin_view.cpp.o.d"
+  "CMakeFiles/oj_app.dir/src/ai_client.cpp.o"
+  "CMakeFiles/oj_app.dir/src/ai_client.cpp.o.d"
   "CMakeFiles/oj_app.dir/src/db_manager.cpp.o"
   "CMakeFiles/oj_app.dir/src/db_manager.cpp.o.d"
   "CMakeFiles/oj_app.dir/src/main.cpp.o"

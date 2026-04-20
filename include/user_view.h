@@ -3,6 +3,7 @@
 
 #include "db_manager.h"
 #include "user.h"
+#include "ai_client.h"
 #include <memory>
 
 /**
@@ -22,6 +23,7 @@ public:
 private:
     std::unique_ptr<DatabaseManager> db_manager;
     std::unique_ptr<User> user_obj;
+    std::unique_ptr<AIClient> ai_client;
 
     /**
      * @brief 清屏

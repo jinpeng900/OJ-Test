@@ -2,12 +2,27 @@
 #include "../include/color_codes.h"
 #include <iostream>
 #include <limits>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
 using namespace Color;
 
-UserView::UserView() : db_manager(nullptr), user_obj(nullptr) {}
+// 辅助函数：读取文件内容
+static string read_file(const string &path)
+{
+    ifstream file(path);
+    if (!file.is_open())
+    {
+        return "";
+    }
+    stringstream buffer;
+    buffer << file.rdbuf();
+    return buffer.str();
+}
+
+UserView::UserView() : db_manager(nullptr), user_obj(nullptr), ai_client(nullptr) {}
 
 UserView::~UserView() {}
 
@@ -29,6 +44,7 @@ void UserView::start()
     if (db_manager->get_connection())
     {
         user_obj = unique_ptr<User>(new User(db_manager.get()));
+        ai_client = make_unique<AIClient>();
         cout << "✅ 成功连接数据库。" << endl;
 
         bool running = true;
@@ -274,12 +290,67 @@ void UserView::handle_submit_code_with_id(int problem_id)
 void UserView::handle_ai_assistant(int problem_id)
 {
     clear_screen();
+
+    // 检查 AI 服务是否可用
+    if (!ai_client || !ai_client->isAvailable())
+    {
+        cout << RED << "AI 服务不可用，请检查配置。" << RESET << endl;
+        cout << "按回车键返回...";
+        cin.get();
+        return;
+    }
+
+    // 读取工作区代码
+    string code = read_file("workspace/solution.cpp");
+
+    // 查询题目详情
+    string problem_info = "题目ID: " + to_string(problem_id);
+    string sql = "SELECT title, description, time_limit, memory_limit FROM problems WHERE id = " + to_string(problem_id);
+    auto results = db_manager->query(sql);
+    if (!results.empty())
+    {
+        problem_info = "【题目信息】\n";
+        problem_info += "题号: " + results[0]["id"] + "\n";
+        problem_info += "标题: " + results[0]["title"] + "\n";
+        problem_info += "描述: " + results[0]["description"] + "\n";
+        problem_info += "时间限制: " + results[0]["time_limit"] + " ms\n";
+        problem_info += "内存限制: " + results[0]["memory_limit"] + " MB";
+    }
+
     cout << GREEN << "========== AI 助手 ==========" << RESET << endl;
     cout << "题目 ID: " << problem_id << endl;
-    cout << "功能开发中..." << endl;
+    cout << "输入问题进行对话，输入 0 或 /quit 返回" << endl;
     cout << GREEN << "=============================" << RESET << endl;
-    cout << "按回车键返回...";
-    cin.get();
+
+    bool in_ai = true;
+    while (in_ai)
+    {
+        cout << "\n"
+             << CYAN << "你> " << RESET;
+
+        string question;
+        getline(cin, question);
+
+        // 检查退出条件
+        if (question == "0" || question == "/quit")
+        {
+            in_ai = false;
+            continue;
+        }
+
+        // 忽略空输入
+        if (question.empty())
+        {
+            continue;
+        }
+
+        cout << "正在思考..." << endl;
+
+        // 调用 AI，传入代码和题目信息
+        string response = ai_client->ask(question, code, problem_info);
+
+        cout << GREEN << "AI> " << RESET << response << endl;
+    }
 }
 
 void UserView::handle_view_submissions()

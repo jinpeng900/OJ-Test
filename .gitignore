@@ -1,0 +1,7 @@
+venv/
+ai/venv/
+ai/.env
+__pycache__/
+*.pyc
+workspace/solution.cpp
+

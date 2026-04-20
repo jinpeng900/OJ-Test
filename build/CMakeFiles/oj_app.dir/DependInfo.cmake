@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/zhiyinpeng/Project/OJ/src/admin.cpp" "CMakeFiles/oj_app.dir/src/admin.cpp.o" "gcc" "CMakeFiles/oj_app.dir/src/admin.cpp.o.d"
   "/home/zhiyinpeng/Project/OJ/src/admin_view.cpp" "CMakeFiles/oj_app.dir/src/admin_view.cpp.o" "gcc" "CMakeFiles/oj_app.dir/src/admin_view.cpp.o.d"
+  "/home/zhiyinpeng/Project/OJ/src/ai_client.cpp" "CMakeFiles/oj_app.dir/src/ai_client.cpp.o" "gcc" "CMakeFiles/oj_app.dir/src/ai_client.cpp.o.d"
   "/home/zhiyinpeng/Project/OJ/src/db_manager.cpp" "CMakeFiles/oj_app.dir/src/db_manager.cpp.o" "gcc" "CMakeFiles/oj_app.dir/src/db_manager.cpp.o.d"
   "/home/zhiyinpeng/Project/OJ/src/main.cpp" "CMakeFiles/oj_app.dir/src/main.cpp.o" "gcc" "CMakeFiles/oj_app.dir/src/main.cpp.o.d"
   "/home/zhiyinpeng/Project/OJ/src/user.cpp" "CMakeFiles/oj_app.dir/src/user.cpp.o" "gcc" "CMakeFiles/oj_app.dir/src/user.cpp.o.d"

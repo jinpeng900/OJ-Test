@@ -176,6 +176,7 @@ CMakeFiles/oj_app.dir/src/view_manager.cpp.o: \
  /usr/include/c++/13/pstl/execution_defs.h \
  /home/zhiyinpeng/Project/OJ/src/../include/user_view.h \
  /home/zhiyinpeng/Project/OJ/src/../include/user.h \
+ /home/zhiyinpeng/Project/OJ/src/../include/ai_client.h \
  /home/zhiyinpeng/Project/OJ/src/../include/color_codes.h \
  /usr/include/c++/13/iostream /usr/include/c++/13/ostream \
  /usr/include/c++/13/ios /usr/include/c++/13/bits/ios_base.h \

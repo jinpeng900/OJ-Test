@@ -177,6 +177,30 @@ src/admin_view.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/admin_view.cpp.s
 .PHONY : src/admin_view.cpp.s
 
+src/ai_client.o: src/ai_client.cpp.o
+.PHONY : src/ai_client.o
+
+# target to build an object file
+src/ai_client.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/ai_client.cpp.o
+.PHONY : src/ai_client.cpp.o
+
+src/ai_client.i: src/ai_client.cpp.i
+.PHONY : src/ai_client.i
+
+# target to preprocess a source file
+src/ai_client.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/ai_client.cpp.i
+.PHONY : src/ai_client.cpp.i
+
+src/ai_client.s: src/ai_client.cpp.s
+.PHONY : src/ai_client.s
+
+# target to generate assembly for a file
+src/ai_client.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/ai_client.cpp.s
+.PHONY : src/ai_client.cpp.s
+
 src/db_manager.o: src/db_manager.cpp.o
 .PHONY : src/db_manager.o
 
@@ -312,6 +336,9 @@ help:
 	@echo "... src/admin_view.o"
 	@echo "... src/admin_view.i"
 	@echo "... src/admin_view.s"
+	@echo "... src/ai_client.o"
+	@echo "... src/ai_client.i"
+	@echo "... src/ai_client.s"
 	@echo "... src/db_manager.o"
 	@echo "... src/db_manager.i"
 	@echo "... src/db_manager.s"

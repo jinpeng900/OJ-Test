@@ -141,7 +141,7 @@ void User::list_problems()
     if (!db_manager)
         return;
 
-    string sql = "SELECT id, title, time_limit, memory_limit FROM problems ORDER BY id";
+    string sql = "SELECT id, title, category, time_limit, memory_limit FROM problems ORDER BY id";
     auto results = db_manager->query(sql);
 
     if (results.empty())
@@ -151,22 +151,84 @@ void User::list_problems()
     }
 
     cout << "\n"
-         << GREEN << "========== 题目列表 ==========" << RESET << endl;
-    cout << left << setw(6) << "ID"
-         << setw(30) << "标题"
-         << setw(15) << "时间限制"
-         << setw(15) << "内存限制" << endl;
-    cout << string(66, '-') << endl;
+         << GREEN << "============================== 题目列表 ================================" << RESET << endl;
+    cout << "ID  标题                                知识点" << endl;
+    cout << string(70, '-') << endl;
 
     for (const auto &row : results)
     {
-        cout << left << setw(6) << row.at("id")
-             << setw(30) << row.at("title")
-             << setw(15) << (row.at("time_limit") + " ms")
-             << setw(15) << (row.at("memory_limit") + " MB") << endl;
+        string category = row.at("category");
+        if (category.empty())
+            category = "-";
+
+        string title = row.at("title");
+        string id = row.at("id");
+
+        // --- 核心修改：遍历字符串，计算显示宽度，并安全截断防止中文乱码 ---
+        int display_width = 0;
+        string formatted_title = "";
+
+        for (size_t i = 0; i < title.length();)
+        {
+            int bytes = 1; // 当前字符占用的字节数
+            int width = 1; // 当前字符在终端的显示宽度
+
+            // 判断 UTF-8 字符边界
+            if ((title[i] & 0x80) == 0)
+            {
+                bytes = 1;
+                width = 1;
+            } // ASCII 英文/数字
+            else if ((title[i] & 0xE0) == 0xE0)
+            {
+                bytes = 3;
+                width = 2;
+            } // 常用中文 (3字节，显示宽度2)
+            else if ((title[i] & 0xE0) == 0xC0)
+            {
+                bytes = 2;
+                width = 1;
+            } // 拉丁文等 (2字节)
+            else
+            {
+                bytes = 4;
+                width = 2;
+            } // Emoji 或生僻字
+
+            // 限制标题长度：如果加上当前字符超过 33 个显示宽度，且还没读完，则截断
+            if (display_width + width > 33 && i + bytes < title.length())
+            {
+                formatted_title += "...";
+                display_width += 3;
+                break; // 跳出，不再拼接后面的字符
+            }
+
+            formatted_title += title.substr(i, bytes);
+            display_width += width;
+            i += bytes;
+        }
+
+        // 填充空格补齐到 36 个显示宽度
+        if (display_width < 36)
+        {
+            formatted_title += string(36 - display_width, ' ');
+        }
+
+        // --- 输出环节 ---
+        cout << id;
+
+        // ID 补齐 4 个宽度 (假设 ID 都是纯数字/ASCII)
+        int id_spaces = 4 - id.length();
+        if (id_spaces > 0)
+        {
+            cout << string(id_spaces, ' ');
+        }
+
+        // 输出对齐后的标题和知识点
+        cout << formatted_title << category << endl;
     }
 
-    cout << GREEN << "==============================" << RESET << "\n"
+    cout << GREEN << "======================================================================" << RESET << "\n"
          << endl;
 }
 
@@ -187,14 +249,15 @@ void User::view_problem(int id)
     const auto &p = results[0];
 
     cout << "\n"
-         << GREEN << "========== 题目详情 ==========" << RESET << endl;
-    cout << "【题号】 " << p.at("id") << endl;
-    cout << "【标题】 " << p.at("title") << endl;
+         << GREEN << "============================ 题目详情 ============================" << RESET << endl;
+    cout << "【题号】     " << p.at("id") << endl;
+    cout << "【标题】     " << p.at("title") << endl;
+    cout << "【知识点】   " << (p.at("category").empty() ? "-" : p.at("category")) << endl;
     cout << "【时间限制】 " << p.at("time_limit") << " ms" << endl;
     cout << "【内存限制】 " << p.at("memory_limit") << " MB" << endl;
-    cout << GREEN << "---------- 题目描述 ----------" << RESET << endl;
+    cout << GREEN << "---------------------------- 题目描述 ----------------------------" << RESET << endl;
     cout << p.at("description") << endl;
-    cout << GREEN << "==============================" << RESET << "\n"
+    cout << GREEN << "================================================================" << RESET << "\n"
          << endl;
 }
 
