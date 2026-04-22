@@ -19,8 +19,7 @@ CREATE TABLE IF NOT EXISTS problems (
     time_limit INT COMMENT '时间限制(ms)',
     memory_limit INT COMMENT '内存限制(MB)',
     test_data_path VARCHAR(256) COMMENT '宿主机测试数据的存放路径',
-    category VARCHAR(50) COMMENT '题目类型',
-    PRIMARY KEY (id)
+    category VARCHAR(50) COMMENT '题目类型'
 ) ENGINE = InnoDB;
 
 -- 4. 创建用户表
@@ -68,14 +67,10 @@ SET GLOBAL validate_password.length = 6;
 -- 7. 创建数据库用户
 
 -- 7.1 管理员用户（全权限）
-CREATE USER IF NOT EXISTS 'oj_admin' @'localhost' IDENTIFIED BY '090800';
+-- 使用 '%' 允许从任何主机连接（Docker 容器间通信需要）
+CREATE USER IF NOT EXISTS 'oj_admin' @'%' IDENTIFIED BY '090800';
 
-GRANT
-SELECT,
-INSERT
-,
-UPDATE,
-DELETE ON OJ.* TO 'oj_admin' @'localhost';
+GRANT SELECT, INSERT , UPDATE, DELETE ON OJ.* TO 'oj_admin' @'%';
 
 -- 7.2 普通用户（受限权限）
 -- 说明：所有平台用户复用此账号连接数据库，行级隔离由应用程序控制

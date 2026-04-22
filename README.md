@@ -12,8 +12,12 @@
 
 ```bash
 git clone <仓库地址>
-cd OJ
+# 根据实际文件夹名进入（如 OJ-Test、OJ、OJ v1.0 等）
+cd OJ-Test
 ```
+
+> **Windows 用户注意**：`docker-entrypoint.sh` 使用 Unix LF 换行符。如果在 Windows 上用记事本编辑过该文件，可能会引入 CRLF 换行符导致脚本无法执行。建议在 Git Bash、WSL2 或 PowerShell 中运行，并确保换行符为 LF（VS Code 右下角可切换）。
+
 
 ### 第二步：配置 AI 密钥（可选）
 
@@ -71,6 +75,8 @@ docker compose run --rm oj-app
 ```
 
 > **注意事项**：`oj-app` 容器需要 `--privileged` 权限以在容器内调用 Docker（评测沙箱所需）。这是此类应用的常用设计，不影响评测沙箱本身的安全隔离。
+>
+> **跨平台兼容性**：所有 Docker 命令在 Linux、macOS 和 Windows（Docker Desktop + WSL2 后端）上行为一致。确保 Docker Desktop 设置中启用了 WSL2 集成（Windows 用户）。
 
 ---
 
