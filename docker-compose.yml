@@ -1,18 +1,4 @@
-# OJ 在线评测系统 - Docker Compose 编排文件
-#
-# 架构说明：
-#   oj-db   : MySQL 数据库（自动初始化表结构和示例数据）
-#   oj-app  : C++ OJ 主程序（含 AI Python 环境，DinD 运行评测沙箱）
-#
-# 快速启动：
-#   1. 复制 AI 密钥配置：cp ai/.env.example ai/.env  并填入 DEEPSEEK_API_KEY
-#   2. 启动系统：docker compose up -d oj-db && docker compose run --rm oj-app
-#
-# 注意：oj-app 需要 --privileged 权限以在容器内运行 Docker（评测沙箱）
-
 services:
-
-  # ── 数据库服务 ──────────────────────────────────────────────────────────────
   oj-db:
     image: mysql:8.0
     container_name: oj-db
@@ -20,15 +6,16 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: ojroot2024
       MYSQL_DATABASE: OJ
-      # 字符集
-      MYSQL_CHARSET: utf8mb4
     ports:
-      - "3306:3306" # 如不需要从宿主机访问数据库，可删除此行
+      - "3306:3306"
     volumes:
-      - oj-db-data:/var/lib/mysql # 数据库持久化
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro # 自动初始化
-    command: >
-      --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
+      - oj-db-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-authentication-plugin=mysql_native_password
+      - --skip-character-set-client-handshake # 强制服务端忽略客户端的 latin1 请求
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pojroot2024" ]
       interval: 5s
@@ -38,43 +25,37 @@ services:
     networks:
       - oj-net
 
-  # ── OJ 主应用 ──────────────────────────────────────────────────────────────
   oj-app:
     build:
       context: .
       dockerfile: Dockerfile.app
     container_name: oj-app
-    # stdin_open + tty：支持交互式终端（OJ 是命令行交互程序）
     stdin_open: true
     tty: true
-    # privileged：允许在容器内运行 Docker 命令（评测沙箱需要）
     privileged: true
     depends_on:
       oj-db:
         condition: service_healthy
     environment:
-      # 数据库连接（覆盖 app_context.cpp 中的硬编码地址）
+      LANG: C.UTF-8 # 强制容器内部使用 UTF-8
+      LC_ALL: C.UTF-8 # 强制所有本地化设置使用 UTF-8
       OJ_DB_HOST: oj-db
       OJ_DB_PORT: 3306
-      # AI API 密钥（从 ai/.env 文件加载）
       DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
     env_file:
       - path: ./ai/.env
-        required: false # .env 不存在时不报错（AI 功能不可用但程序正常运行）
+        required: false
     volumes:
-      - ./data:/app/data:ro # 测试数据（只读挂载）
-      - ./workspace:/app/workspace # 用户代码工作区（可写）
-      - /var/run/docker.sock:/var/run/docker.sock # 共享宿主机 Docker socket
+      - ./data:/app/data:ro
+      - ./workspace:/app/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - oj-net
     working_dir: /app
 
-# ── 数据卷 ─────────────────────────────────────────────────────────────────
-volumes:
-  oj-db-data:
-    driver: local
-
-# ── 网络 ───────────────────────────────────────────────────────────────────
 networks:
   oj-net:
     driver: bridge
+
+volumes:
+  oj-db-data:

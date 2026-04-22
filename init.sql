@@ -59,11 +59,6 @@ CREATE TABLE IF NOT EXISTS submissions (
     INDEX idx_problem_id (problem_id)
 ) ENGINE = InnoDB;
 
--- 6. 配置 MySQL 密码策略 (针对部分高版本 MySQL 环境)
-SET GLOBAL validate_password.policy = LOW;
-
-SET GLOBAL validate_password.length = 6;
-
 -- 7. 创建数据库用户
 
 -- 7.1 管理员用户（全权限）
