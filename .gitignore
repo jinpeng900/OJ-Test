@@ -11,8 +11,7 @@ __pycache__/
 # AI 密鑰（敏感信息）
 ai/.env
 
-# 用户代码工作区
-workspace/solution.cpp
+
 
 # IDE
 .vscode/

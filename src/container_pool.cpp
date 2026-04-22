@@ -14,7 +14,7 @@ ContainerPool::~ContainerPool()
 // 创建并启动一个新容器
 
 shared_ptr<SandboxContainer> ContainerPool::createContainer()
-{ // 容器在池与调用方之间共享，使用 make_shared 与返回类型保持一致
+{ // 容器池与调用方之间共享，使用 make_shared 与返回类型保持一致
     auto c = make_shared<SandboxContainer>();
     if (c->start(image_))
         return c;
