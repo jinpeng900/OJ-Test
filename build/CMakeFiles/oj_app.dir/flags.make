@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/zhiyinpeng/Project/OJ/include -I/usr/include/mysql
+CXX_INCLUDES = -I"/home/zhiyinpeng/test/OJ v1.0/OJ/include" -I/usr/include/mysql
 
 CXX_FLAGS = -std=gnu++17
 

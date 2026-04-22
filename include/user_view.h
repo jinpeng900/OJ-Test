@@ -6,58 +6,40 @@
 #include "ai_client.h"
 #include <memory>
 
-/**
- * @brief 用户界面类
- */
+// 用户界面类
 class UserView
 {
 public:
-    UserView();
+    explicit UserView(unique_ptr<DatabaseManager> db);      // explicit 防止隐式转换
     ~UserView();
 
-    /**
-     * @brief 启动用户模式
-     */
+    // 启动用户模式
     void start();
 
 private:
-    std::unique_ptr<DatabaseManager> db_manager;
-    std::unique_ptr<User> user_obj;
-    std::unique_ptr<AIClient> ai_client;
+    unique_ptr<DatabaseManager> db_manager;
+    unique_ptr<User> user_obj;
+    unique_ptr<AIClient> ai_client;
 
-    /**
-     * @brief 清屏
-     */
+    // 清屏
     void clear_screen();
 
-    /**
-     * @brief 显示游客菜单（未登录）
-     */
+    // 显示游客菜单（未登录）
     void show_guest_menu();
 
-    /**
-     * @brief 显示用户菜单（已登录）
-     */
+    // 显示用户菜单（已登录）
     void show_user_menu();
 
-    /**
-     * @brief 处理登录
-     */
+    // 处理登录
     void handle_login();
 
-    /**
-     * @brief 处理注册
-     */
+    // 处理注册
     void handle_register();
 
-    /**
-     * @brief 处理查看题目列表
-     */
+    // 处理查看题目列表
     void handle_list_problems();
 
-    /**
-     * @brief 处理查看题目详情
-     */
+    // 处理查看题目详情
     void handle_view_problem();
 
     /**
@@ -72,19 +54,13 @@ private:
      */
     void handle_ai_assistant(int problem_id);
 
-    /**
-     * @brief 处理查看我的提交
-     */
+    // 处理查看我的提交
     void handle_view_submissions();
 
-    /**
-     * @brief 处理修改密码
-     */
+    // 处理修改密码
     void handle_change_password();
 
-    /**
-     * @brief 清空输入缓冲区
-     */
+    // 清空输入缓冲区
     void clear_input();
 };
 

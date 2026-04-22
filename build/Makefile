@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/zhiyinpeng/Project/OJ
+CMAKE_SOURCE_DIR = "/home/zhiyinpeng/test/OJ v1.0/OJ"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/zhiyinpeng/Project/OJ/build
+CMAKE_BINARY_DIR = "/home/zhiyinpeng/test/OJ v1.0/OJ/build"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/zhiyinpeng/Project/OJ/build/CMakeFiles /home/zhiyinpeng/Project/OJ/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/zhiyinpeng/test/OJ v1.0/OJ/build/CMakeFiles" "/home/zhiyinpeng/test/OJ v1.0/OJ/build//CMakeFiles/progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/zhiyinpeng/Project/OJ/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/zhiyinpeng/test/OJ v1.0/OJ/build/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -200,6 +200,30 @@ src/ai_client.s: src/ai_client.cpp.s
 src/ai_client.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/ai_client.cpp.s
 .PHONY : src/ai_client.cpp.s
+
+src/app_context.o: src/app_context.cpp.o
+.PHONY : src/app_context.o
+
+# target to build an object file
+src/app_context.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/app_context.cpp.o
+.PHONY : src/app_context.cpp.o
+
+src/app_context.i: src/app_context.cpp.i
+.PHONY : src/app_context.i
+
+# target to preprocess a source file
+src/app_context.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/app_context.cpp.i
+.PHONY : src/app_context.cpp.i
+
+src/app_context.s: src/app_context.cpp.s
+.PHONY : src/app_context.s
+
+# target to generate assembly for a file
+src/app_context.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/oj_app.dir/build.make CMakeFiles/oj_app.dir/src/app_context.cpp.s
+.PHONY : src/app_context.cpp.s
 
 src/container_pool.o: src/container_pool.cpp.o
 .PHONY : src/container_pool.o
@@ -411,6 +435,9 @@ help:
 	@echo "... src/ai_client.o"
 	@echo "... src/ai_client.i"
 	@echo "... src/ai_client.s"
+	@echo "... src/app_context.o"
+	@echo "... src/app_context.i"
+	@echo "... src/app_context.s"
 	@echo "... src/container_pool.o"
 	@echo "... src/container_pool.i"
 	@echo "... src/container_pool.s"

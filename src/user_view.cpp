@@ -22,7 +22,10 @@ static string read_file(const string &path)
     return buffer.str();
 }
 
-UserView::UserView() : db_manager(nullptr), user_obj(nullptr), ai_client(nullptr) {}
+UserView::UserView(unique_ptr<DatabaseManager> db) // move() 将 db 的所有权转移到 UserView 内部
+    : db_manager(move(db)), user_obj(nullptr), ai_client(nullptr)
+{
+}
 
 UserView::~UserView() {}
 
@@ -36,16 +39,16 @@ void UserView::clear_screen()
 void UserView::start()
 {
     clear_screen();
-    cout << "🔑 正在进入用户模式并建立数据库连接..." << endl;
+    cout << "正在进入用户模式并建立数据库连接..." << endl;
 
-    // 使用普通用户账号连接（受限权限）
-    db_manager = make_unique<DatabaseManager>("localhost", "oj_user", "user123", "OJ");
+    // 数据库连接由调用方（ViewManager / AppContext）注入
 
     if (db_manager->get_connection())
     {
-        user_obj = unique_ptr<User>(new User(db_manager.get()));
+        user_obj = make_unique<User>(db_manager.get());
         ai_client = make_unique<AIClient>();
-        cout << "✅ 成功连接数据库。" << endl;
+        ai_client->setDatabaseManager(db_manager.get());
+        cout << "成功连接数据库。" << endl;
 
         bool running = true;
         while (running)
@@ -64,7 +67,7 @@ void UserView::start()
             if (!(cin >> choice))
             {
                 clear_input();
-                cout << "⚠️ 无效输入，请输入数字！" << endl;
+                cout << "无效输入，请输入数字！" << endl;
                 continue;
             }
             clear_input();
@@ -86,11 +89,11 @@ void UserView::start()
                     handle_register();
                     break;
                 case 0:
-                    cout << "🔙 返回登录菜单..." << endl;
+                    cout << "返回登录菜单..." << endl;
                     running = false;
                     break;
                 default:
-                    cout << "⚠️ 无效选项。" << endl;
+                    cout << "无效选项。" << endl;
                 }
             }
             else
@@ -125,7 +128,7 @@ void UserView::start()
     }
     else
     {
-        cerr << "❌ 数据库连接失败。" << endl;
+        cerr << "数据库连接失败。" << endl;
         db_manager.reset();
     }
 }
@@ -167,7 +170,7 @@ void UserView::handle_login()
     // 检查是否返回
     if (account == "0")
     {
-        cout << "🔙 返回..." << endl;
+        cout << "返回..." << endl;
         return;
     }
 
@@ -176,7 +179,7 @@ void UserView::handle_login()
 
     if (password == "0")
     {
-        cout << "🔙 返回..." << endl;
+        cout << "返回..." << endl;
         return;
     }
 
@@ -194,7 +197,7 @@ void UserView::handle_register()
     // 检查是否返回
     if (account == "0")
     {
-        cout << "🔙 返回..." << endl;
+        cout << "返回..." << endl;
         return;
     }
 
@@ -203,7 +206,7 @@ void UserView::handle_register()
 
     if (password == "0")
     {
-        cout << "🔙 返回..." << endl;
+        cout << "返回..." << endl;
         return;
     }
 
@@ -223,7 +226,7 @@ void UserView::handle_view_problem()
     if (!(cin >> id))
     {
         clear_input();
-        cout << "⚠️ ID 必须是数字！" << endl;
+        cout << "ID 必须是数字！" << endl;
         return;
     }
     clear_input();
@@ -251,7 +254,7 @@ void UserView::handle_view_problem()
         if (!(cin >> choice))
         {
             clear_input();
-            cout << "⚠️ 无效输入！" << endl;
+            cout << "无效输入！" << endl;
             continue;
         }
         clear_input();
@@ -268,7 +271,7 @@ void UserView::handle_view_problem()
             in_problem_menu = false;
             break;
         default:
-            cout << "⚠️ 无效选项。" << endl;
+            cout << "无效选项。" << endl;
         }
     }
 }
@@ -278,11 +281,11 @@ void UserView::handle_submit_code_with_id(int problem_id)
     string code = read_file("workspace/solution.cpp");
     if (code.empty())
     {
-        cout << RED << "❗ workspace/solution.cpp 为空或不存在，请先编写代码。" << RESET << endl;
+        cout << RED << "workspace/solution.cpp 为空或不存在，请先编写代码。" << RESET << endl;
         return;
     }
-    cout << "✅ 已读取 workspace/solution.cpp（" << code.size() << " 字节）" << endl;
-    user_obj->submit_code(problem_id, code, "C++");
+    cout << "已读取 workspace/solution.cpp（" << code.size() << " 字节）" << endl;
+    user_obj->submit_code(problem_id, code);
     cout << "\n按回车键返回...";
     cin.get();
 }
@@ -302,20 +305,6 @@ void UserView::handle_ai_assistant(int problem_id)
 
     // 读取工作区代码
     string code = read_file("workspace/solution.cpp");
-
-    // 查询当前题目详情
-    string problem_info = "题目ID: " + to_string(problem_id);
-    string sql = "SELECT title, description, time_limit, memory_limit FROM problems WHERE id = " + to_string(problem_id);
-    auto results = db_manager->query(sql);
-    if (!results.empty())
-    {
-        problem_info = "【题目信息】\n";
-        problem_info += "题号: " + results[0]["id"] + "\n";
-        problem_info += "标题: " + results[0]["title"] + "\n";
-        problem_info += "描述: " + results[0]["description"] + "\n";
-        problem_info += "时间限制: " + results[0]["time_limit"] + " ms\n";
-        problem_info += "内存限制: " + results[0]["memory_limit"] + " MB";
-    }
 
     cout << GREEN << "========== AI 助手 ==========" << RESET << endl;
     cout << "题目 ID: " << problem_id << endl;
@@ -346,23 +335,9 @@ void UserView::handle_ai_assistant(int problem_id)
 
         cout << "正在思考..." << endl;
 
-        // 调用 AI，传入代码和题目信息
-        string response = ai_client->ask(question, code, problem_info);
-
-        // 检测 AI 是否请求题库数据（推荐题目场景）
-        if (response.find("[NEED_PROBLEMS]") != string::npos)
-        {
-            // 按需加载题库列表
-            string context_with_list = problem_info + "\n\n【题库列表】\n";
-            string list_sql = "SELECT id, title, category, description FROM problems ORDER BY id";
-            auto all_problems = db_manager->query(list_sql);
-            for (const auto &p : all_problems)
-            {
-                context_with_list += "题号:" + p.at("id") + " | 标题:" + p.at("title") + " | 类别:" + p.at("category") + " | 描述:" + p.at("description").substr(0, 80) + "\n";
-            }
-            // 携带题库数据重新调用 AI
-            response = ai_client->ask(question, code, context_with_list);
-        }
+        // 调用 AI，自动查询题目上下文并处理 NEED_PROBLEMS
+        string error_ctx = user_obj->getLastErrorContext();
+        string response = ai_client->askWithProblemContext(question, code, problem_id, error_ctx);
 
         cout << GREEN << "AI> " << RESET << response << endl;
     }
@@ -386,7 +361,7 @@ void UserView::handle_change_password()
     // 检查是否返回
     if (old_pwd == "0")
     {
-        cout << "🔙 返回..." << endl;
+        cout << "返回..." << endl;
         return;
     }
 
@@ -395,7 +370,7 @@ void UserView::handle_change_password()
 
     if (new_pwd == "0")
     {
-        cout << "🔙 返回..." << endl;
+        cout << "返回..." << endl;
         return;
     }
 

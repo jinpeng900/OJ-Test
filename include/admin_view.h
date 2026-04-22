@@ -4,53 +4,38 @@
 #include "db_manager.h"
 #include "admin.h"
 #include <memory>
+using namespace std;
 
-/**
- * @brief 管理员界面类
- */
+// 管理员界面类
 class AdminView
 {
 public:
-    AdminView();
+    explicit AdminView(unique_ptr<DatabaseManager> db);
     ~AdminView();
 
-    /**
-     * @brief 启动管理员模式
-     */
+    // 启动管理员模式
     void start();
 
 private:
-    std::unique_ptr<DatabaseManager> db_manager;
-    std::unique_ptr<Admin> admin_obj;
+    unique_ptr<DatabaseManager> db_manager;
+    unique_ptr<Admin> admin_obj;
 
-    /**
-     * @brief 清屏
-     */
+    // 清屏
     void clear_screen();
 
-    /**
-     * @brief 显示管理员菜单
-     */
+    // 显示管理员菜单
     void show_menu();
 
-    /**
-     * @brief 处理查看所有题目
-     */
+    // 处理查看所有题目
     void handle_list_problems();
 
-    /**
-     * @brief 处理查看题目详情
-     */
+    // 处理查看题目详情
     void handle_show_problem();
 
-    /**
-     * @brief 处理添加新题目
-     */
+    // 处理添加新题目
     void handle_add_problem();
 
-    /**
-     * @brief 清空输入缓冲区
-     */
+    // 清空输入缓冲区
     void clear_input();
 };
 

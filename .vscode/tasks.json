@@ -4,7 +4,15 @@
         {
             "label": "CMake: Build",
             "type": "shell",
-            "command": "cmake --build ${workspaceFolder}/build --parallel",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "build",
+                "--parallel"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
             "group": {
                 "kind": "build",
                 "isDefault": true

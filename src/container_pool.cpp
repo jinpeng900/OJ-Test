@@ -1,9 +1,9 @@
 #include "../include/container_pool.h"
 #include <iostream>
 
-// ----------------------------------------------------------------
+using namespace std;
+
 // 析构：销毁所有常驻容器
-// ----------------------------------------------------------------
 
 ContainerPool::~ContainerPool()
 {
@@ -11,26 +11,24 @@ ContainerPool::~ContainerPool()
         c->destroy();
 }
 
-// ----------------------------------------------------------------
-// 内部：创建并启动单个容器
-// ----------------------------------------------------------------
+// 创建并启动一个新容器
 
-std::shared_ptr<SandboxContainer> ContainerPool::createContainer()
-{
-    auto c = std::make_shared<SandboxContainer>();
+shared_ptr<SandboxContainer> ContainerPool::createContainer()
+{ // 容器在池与调用方之间共享，使用 make_shared 与返回类型保持一致
+    auto c = make_shared<SandboxContainer>();
     if (c->start(image_))
         return c;
     return nullptr;
 }
 
-// ----------------------------------------------------------------
 // 初始化：预创建常驻容器
-// ----------------------------------------------------------------
 
-bool ContainerPool::initialize(int min_size, int max_size, const std::string &image)
+bool ContainerPool::initialize(int min_size, int max_size, const string &image)
 {
-    std::lock_guard<std::mutex> lock(mutex_);
+    // lock_guard 在函数结束时自动释放锁，确保线程安全 , lock 保护整个初始化过程，防止多个线程同时调用 initialize 导致竞态条件
+    lock_guard<mutex> lock(mutex_);
     max_size_ = max_size;
+    temporary_active_ = 0;
     image_ = image;
 
     for (int i = 0; i < min_size; ++i)
@@ -38,24 +36,22 @@ bool ContainerPool::initialize(int min_size, int max_size, const std::string &im
         auto c = createContainer();
         if (!c)
         {
-            std::cerr << "[ContainerPool] 第 " << i + 1
-                      << " 个常驻容器启动失败" << std::endl;
+            cerr << "[ContainerPool] 第 " << i + 1
+                 << " 个常驻容器启动失败" << endl;
             return false;
         }
         resident_.push_back(c);
-        std::cout << "[ContainerPool] 常驻容器已就绪: "
-                  << c->getId().substr(0, 12) << std::endl;
+        cout << "[ContainerPool] 常驻容器已就绪: "
+             << c->getId().substr(0, 12) << endl;
     }
     return true;
 }
 
-// ----------------------------------------------------------------
-// 获取容器
-// ----------------------------------------------------------------
+// 获取可用容器
 
-std::shared_ptr<SandboxContainer> ContainerPool::acquire(bool &is_temporary)
+shared_ptr<SandboxContainer> ContainerPool::acquire(bool &is_temporary)
 {
-    std::lock_guard<std::mutex> lock(mutex_);
+    lock_guard<mutex> lock(mutex_);
 
     // 优先使用空闲的常驻容器
     for (auto &c : resident_)
@@ -69,11 +65,12 @@ std::shared_ptr<SandboxContainer> ContainerPool::acquire(bool &is_temporary)
     }
 
     // 所有常驻容器繁忙，检查是否可以创建临时容器
-    // （临时容器不加入 resident_，所以用 resident_.size() 做简单统计）
-    if (static_cast<int>(resident_.size()) >= max_size_)
+    // 总量限制 = 常驻容器 + 当前存活临时容器
+    int total_active = static_cast<int>(resident_.size()) + temporary_active_;
+    if (total_active >= max_size_)
     {
-        std::cerr << "[ContainerPool] 已达最大容器数 "
-                  << max_size_ << "，评测请求被拒绝" << std::endl;
+        cerr << "[ContainerPool] 已达最大容器数 "
+             << max_size_ << "，评测请求被拒绝" << endl;
         is_temporary = false;
         return nullptr;
     }
@@ -83,18 +80,17 @@ std::shared_ptr<SandboxContainer> ContainerPool::acquire(bool &is_temporary)
     if (c)
     {
         c->setState(ContainerState::BUSY);
+        ++temporary_active_;
         is_temporary = true;
-        std::cout << "[ContainerPool] 临时容器已创建: "
-                  << c->getId().substr(0, 12) << std::endl;
+        cout << "[ContainerPool] 临时容器已创建: "
+             << c->getId().substr(0, 12) << endl;
     }
     return c;
 }
 
-// ----------------------------------------------------------------
 // 归还常驻容器
-// ----------------------------------------------------------------
 
-void ContainerPool::release(std::shared_ptr<SandboxContainer> container)
+void ContainerPool::release(shared_ptr<SandboxContainer> container)
 {
     if (!container)
         return;
@@ -102,54 +98,23 @@ void ContainerPool::release(std::shared_ptr<SandboxContainer> container)
     container->setState(ContainerState::IDLE); // 置回空闲
 }
 
-// ----------------------------------------------------------------
 // 销毁临时容器
-// ----------------------------------------------------------------
 
-void ContainerPool::destroyTemporary(std::shared_ptr<SandboxContainer> container)
+void ContainerPool::destroyTemporary(shared_ptr<SandboxContainer> container)
 {
-    if (container)
-        container->destroy();
-}
+    if (!container)
+        return;
 
-// ----------------------------------------------------------------
-// 健康检查：重建失联的常驻容器
-// ----------------------------------------------------------------
-
-void ContainerPool::healthCheck()
-{
-    std::lock_guard<std::mutex> lock(mutex_);
-    for (auto &c : resident_)
+    // 同一个临时容器只计数一次：destroy() 后 getId() 为空
+    bool alive_before_destroy = !container->getId().empty();
+    if (alive_before_destroy)
     {
-        if (!c->isAlive())
-        {
-            std::cerr << "[ContainerPool] 容器 "
-                      << c->getId().substr(0, 12)
-                      << " 失联，正在重建..." << std::endl;
-            c->destroy();
-            auto fresh = createContainer();
-            if (fresh)
-                c = fresh;
-        }
+        // 只在锁内更新共享计数；destroy() 会执行外部命令，放到锁外避免长时间占锁。
+        lock_guard<mutex> lock(mutex_);
+        if (temporary_active_ > 0)
+            --temporary_active_;
     }
-}
 
-// ----------------------------------------------------------------
-// 统计查询
-// ----------------------------------------------------------------
-
-int ContainerPool::idleCount() const
-{
-    std::lock_guard<std::mutex> lock(mutex_);
-    int cnt = 0;
-    for (const auto &c : resident_)
-        if (c->getState() == ContainerState::IDLE)
-            ++cnt;
-    return cnt;
-}
-
-int ContainerPool::residentCount() const
-{
-    std::lock_guard<std::mutex> lock(mutex_);
-    return static_cast<int>(resident_.size());
+    if (alive_before_destroy)
+        container->destroy();
 }

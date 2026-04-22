@@ -1,5 +1,6 @@
 #include "../include/view_manager.h"
 #include "../include/color_codes.h"
+#include "../include/app_context.h"
 #include <iostream>
 #include <limits>
 
@@ -21,7 +22,7 @@ void ViewManager::clear_screen()
 void ViewManager::show_main_menu()
 {
     cout << GREEN << "========================================" << RESET << endl;
-    cout << "       🚀 OJ 在线判题系统 - 登录" << endl;
+    cout << "        OJ 在线判题系统 - 登录" << endl;
     cout << GREEN << "========================================" << RESET << endl;
     cout << " 1. 管理员进入" << endl;
     cout << " 2. 用户进入" << endl;
@@ -42,7 +43,7 @@ void ViewManager::start_login_menu()
         if (!(cin >> choice))
         {
             clear_input();
-            cout << "⚠️ 无效输入，请输入数字！" << endl;
+            cout << "无效输入，请输入数字！" << endl;
             continue;
         }
         clear_input();
@@ -50,21 +51,21 @@ void ViewManager::start_login_menu()
         switch (choice)
         {
         case 1:
-            admin_view = make_unique<AdminView>();
+            admin_view = make_unique<AdminView>(AppContext::createAdminDB());
             admin_view->start();
             admin_view.reset();
             break;
         case 2:
-            user_view = make_unique<UserView>();
+            user_view = make_unique<UserView>(AppContext::createUserDB());
             user_view->start();
             user_view.reset();
             break;
         case 0:
-            cout << "👋 正在退出..." << endl;
+            cout << "正在退出..." << endl;
             running = false;
             break;
         default:
-            cout << "⚠️ 无效选项，请重新选择。" << endl;
+            cout << "无效选项，请重新选择。" << endl;
         }
     }
 }

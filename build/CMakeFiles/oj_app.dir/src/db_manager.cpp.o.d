@@ -1,7 +1,7 @@
 CMakeFiles/oj_app.dir/src/db_manager.cpp.o: \
- /home/zhiyinpeng/Project/OJ/src/db_manager.cpp \
+ /home/zhiyinpeng/test/OJ\ v1.0/OJ/src/db_manager.cpp \
  /usr/include/stdc-predef.h \
- /home/zhiyinpeng/Project/OJ/src/../include/db_manager.h \
+ /home/zhiyinpeng/test/OJ\ v1.0/OJ/src/../include/db_manager.h \
  /usr/include/mysql/mysql.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \

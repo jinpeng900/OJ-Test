@@ -1,8 +1,8 @@
 CMakeFiles/oj_app.dir/src/admin_view.cpp.o: \
- /home/zhiyinpeng/Project/OJ/src/admin_view.cpp \
+ /home/zhiyinpeng/test/OJ\ v1.0/OJ/src/admin_view.cpp \
  /usr/include/stdc-predef.h \
- /home/zhiyinpeng/Project/OJ/src/../include/admin_view.h \
- /home/zhiyinpeng/Project/OJ/src/../include/db_manager.h \
+ /home/zhiyinpeng/test/OJ\ v1.0/OJ/src/../include/admin_view.h \
+ /home/zhiyinpeng/test/OJ\ v1.0/OJ/src/../include/db_manager.h \
  /usr/include/mysql/mysql.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
@@ -140,7 +140,7 @@ CMakeFiles/oj_app.dir/src/admin_view.cpp.o: \
  /usr/include/c++/13/bits/stl_map.h \
  /usr/include/c++/13/bits/stl_multimap.h \
  /usr/include/c++/13/bits/erase_if.h \
- /home/zhiyinpeng/Project/OJ/src/../include/admin.h \
+ /home/zhiyinpeng/test/OJ\ v1.0/OJ/src/../include/admin.h \
  /usr/include/c++/13/memory /usr/include/c++/13/bits/stl_tempbuf.h \
  /usr/include/c++/13/bits/stl_raw_storage_iter.h \
  /usr/include/c++/13/bits/align.h /usr/include/c++/13/bits/unique_ptr.h \
@@ -173,7 +173,7 @@ CMakeFiles/oj_app.dir/src/admin_view.cpp.o: \
  /usr/include/c++/13/backward/auto_ptr.h \
  /usr/include/c++/13/pstl/glue_memory_defs.h \
  /usr/include/c++/13/pstl/execution_defs.h \
- /home/zhiyinpeng/Project/OJ/src/../include/color_codes.h \
+ /home/zhiyinpeng/test/OJ\ v1.0/OJ/src/../include/color_codes.h \
  /usr/include/c++/13/iostream /usr/include/c++/13/ostream \
  /usr/include/c++/13/ios /usr/include/c++/13/bits/ios_base.h \
  /usr/include/c++/13/bits/locale_classes.h \

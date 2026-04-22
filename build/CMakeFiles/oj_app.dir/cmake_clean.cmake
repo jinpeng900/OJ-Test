@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/oj_app.dir/src/admin_view.cpp.o.d"
   "CMakeFiles/oj_app.dir/src/ai_client.cpp.o"
   "CMakeFiles/oj_app.dir/src/ai_client.cpp.o.d"
+  "CMakeFiles/oj_app.dir/src/app_context.cpp.o"
+  "CMakeFiles/oj_app.dir/src/app_context.cpp.o.d"
   "CMakeFiles/oj_app.dir/src/container_pool.cpp.o"
   "CMakeFiles/oj_app.dir/src/container_pool.cpp.o.d"
   "CMakeFiles/oj_app.dir/src/db_manager.cpp.o"

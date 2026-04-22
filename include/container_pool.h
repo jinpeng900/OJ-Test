@@ -4,8 +4,9 @@
 #include "sandbox_container.h"
 #include <vector>
 #include <memory>
-#include <mutex>
+#include <mutex> // 保护容器池数据结构的线程安全
 #include <string>
+using namespace std;
 
 /**
  * @brief 容器池管理器
@@ -31,7 +32,7 @@ public:
      * @return 全部常驻容器启动成功返回 true
      */
     bool initialize(int min_size = 1, int max_size = 4,
-                    const std::string &image = "judge-sandbox:latest");
+                    const string &image = "judge-sandbox:latest");
 
     /**
      * @brief 获取可用容器
@@ -44,7 +45,7 @@ public:
      * @param is_temporary 输出参数：true 表示临时容器，调用方用完后须调 destroyTemporary()
      * @return 容器指针，失败返回 nullptr
      */
-    std::shared_ptr<SandboxContainer> acquire(bool &is_temporary);
+    shared_ptr<SandboxContainer> acquire(bool &is_temporary);
 
     /**
      * @brief 归还常驻容器
@@ -52,33 +53,23 @@ public:
      * 重置容器内文件系统并将状态置回 IDLE，使其可再次被获取。
      * @param container 待归还的常驻容器
      */
-    void release(std::shared_ptr<SandboxContainer> container);
+    void release(shared_ptr<SandboxContainer> container);
 
     /**
      * @brief 销毁临时容器
      * @param container 临时容器
      */
-    void destroyTemporary(std::shared_ptr<SandboxContainer> container);
-
-    /**
-     * @brief 对所有常驻容器做健康检查，重建失联容器
-     */
-    void healthCheck();
-
-    /** @brief 返回当前空闲常驻容器数量 */
-    int idleCount() const;
-
-    /** @brief 返回常驻容器总数 */
-    int residentCount() const;
+    void destroyTemporary(shared_ptr<SandboxContainer> container);
 
 private:
-    std::vector<std::shared_ptr<SandboxContainer>> resident_; // 常驻容器列表
-    mutable std::mutex mutex_;
+    vector<shared_ptr<SandboxContainer>> resident_; // 常驻容器列表
+    mutable mutex mutex_;                           // 保护 resident_ 和相关状态的线程安全
     int max_size_ = 4;
-    std::string image_ = "judge-sandbox:latest";
+    int temporary_active_ = 0; // 当前存活的临时容器数量
+    string image_ = "judge-sandbox:latest";
 
-    /** @brief 创建并启动一个新容器 */
-    std::shared_ptr<SandboxContainer> createContainer();
+    // 创建并启动一个新容器
+    shared_ptr<SandboxContainer> createContainer();
 };
 
 #endif // CONTAINER_POOL_H
