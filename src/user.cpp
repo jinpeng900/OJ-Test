@@ -448,50 +448,6 @@ void User::submit_code(int problem_id, const string &code)
     cout << "通过测试点: " << report.passed_test_cases << " / " << report.total_test_cases << endl;
     cout << "时间: " << report.time_used_ms << " ms  |  内存: " << report.memory_used_mb << " MB" << endl;
 
-    // if (!report.details.empty())
-    // {
-    //     cout << "\n测试点详情:" << endl;
-    //     for (const auto &d : report.details)
-    //     {
-    //         string tc_color, tc_tag;
-    //         switch (d.result)
-    //         {
-    //         case JudgeResult::ACCEPTED:
-    //             tc_color = GREEN;
-    //             tc_tag = "AC";
-    //             break;
-    //         case JudgeResult::WRONG_ANSWER:
-    //             tc_color = RED;
-    //             tc_tag = "WA";
-    //             break;
-    //         case JudgeResult::TIME_LIMIT_EXCEEDED:
-    //             tc_color = YELLOW;
-    //             tc_tag = "TLE";
-    //             break;
-    //         case JudgeResult::MEMORY_LIMIT_EXCEEDED:
-    //             tc_color = YELLOW;
-    //             tc_tag = "MLE";
-    //             break;
-    //         case JudgeResult::RUNTIME_ERROR:
-    //             tc_color = RED;
-    //             tc_tag = "RE";
-    //             break;
-    //         default:
-    //             tc_color = "";
-    //             tc_tag = "??";
-    //             break;
-    //         }
-    //         cout << "  #" << d.case_id << " "
-    //              << tc_color << tc_tag << RESET
-    //              << "  " << d.time_ms << "ms  " << d.memory_mb << "MB";
-    //         if (!d.output_diff.empty())
-    //         {
-    //             string diff = d.output_diff.substr(0, 200);
-    //             cout << "\n     " << diff;
-    //         }
-    //         cout << endl;
-    //     }
-    // }
     cout << GREEN << "==============================" << RESET << endl;
 }
 

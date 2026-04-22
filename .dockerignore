@@ -1,0 +1,28 @@
+# 构建产物（不需要复制进镜像，Dockerfile 会重新编译）
+build/
+src/build/
+
+# Git
+.git/
+.gitignore
+
+# IDE / 编辑器
+.vscode/
+.qoder/
+*.swp
+*.swo
+.DS_Store
+
+# AI 密钥（敏感信息，通过 env_file 或环境变量注入）
+ai/.env
+
+# 文档（不需要进镜像）
+docs/
+History/
+README.md
+*.md
+
+# Python 缓存
+ai/__pycache__/
+ai/*.pyc
+ai/venv/

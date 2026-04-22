@@ -1,7 +1,19 @@
+# 编译产物
+build/
+src/build/
+
+# Python
 venv/
 ai/venv/
-ai/.env
 __pycache__/
 *.pyc
+
+# AI 密鑰（敏感信息）
+ai/.env
+
+# 用户代码工作区
 workspace/solution.cpp
 
+# IDE
+.vscode/
+.DS_Store

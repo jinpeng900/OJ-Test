@@ -1,3 +1,0 @@
-/home/zhiyinpeng/test/OJ v1.0/OJ/build/CMakeFiles/oj_app.dir
-/home/zhiyinpeng/test/OJ v1.0/OJ/build/CMakeFiles/edit_cache.dir
-/home/zhiyinpeng/test/OJ v1.0/OJ/build/CMakeFiles/rebuild_cache.dir
