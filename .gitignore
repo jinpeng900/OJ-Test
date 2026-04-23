@@ -16,3 +16,4 @@ ai/.env
 # IDE
 .vscode/
 .DS_Store
+.content/
