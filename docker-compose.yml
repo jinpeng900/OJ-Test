@@ -1,0 +1,66 @@
+services:
+  oj-db:
+    image: mysql:8.0
+    container_name: oj-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ojroot2024
+      MYSQL_DATABASE: OJ
+    ports:
+      - "3306:3306"
+    volumes:
+      - oj-db-data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-authentication-plugin=mysql_native_password
+      - --skip-character-set-client-handshake # 强制服务端忽略客户端的 latin1 请求
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pojroot2024" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - oj-net
+
+  oj-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    container_name: oj-app
+    stdin_open: true
+    tty: true
+    privileged: true
+    # The current C++ code connects to MySQL through OJ_DB_HOST.
+    # Sharing oj-db's network namespace keeps that code path working in Docker.
+    network_mode: "service:oj-db"
+    depends_on:
+      oj-db:
+        condition: service_healthy
+    environment:
+      LANG: C.UTF-8 # 强制容器内部使用 UTF-8
+      LC_ALL: C.UTF-8 # 强制所有本地化设置使用 UTF-8
+      OJ_DB_HOST: 127.0.0.1
+      OJ_DB_PORT: 3306
+      DISPLAY: ${DISPLAY:-:0}
+      QT_X11_NO_MITSHM: "1"
+    env_file:
+      - path: ./ai/.env
+        required: false
+    volumes:
+      - ./data:/app/data:ro
+      - ./workspace:/app/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    devices:
+      - /dev/dri:/dev/dri
+    working_dir: /app
+
+networks:
+  oj-net:
+    driver: bridge
+
+volumes:
+  oj-db-data:

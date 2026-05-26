@@ -1,0 +1,73 @@
+# Build outputs
+build/
+src/build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# Compiled binaries and objects
+*.o
+*.obj
+*.a
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.out
+oj_app
+oj_app_*
+
+# Runtime workspace and generated GUI state
+workspace/
+imgui.ini
+
+# Secrets and local environment files
+.env
+.env.*
+!.env.example
+ai/.env
+ai/.env.*
+!ai/.env.example
+
+# Python AI service environment/cache
+ai/venv/
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Editor and local assistant metadata
+.gitrepo/
+.idea/
+.vscode/
+.qoder/
+.agents/
+.codex/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Local database/runtime artifacts
+*.db
+*.sqlite
+*.sqlite3
+mysql_data/
+docker-data/
+
+# Vendored ImGui extras not needed by this project build
+deps/imgui/.github/
+deps/imgui/docs/
+deps/imgui/examples/
+deps/imgui/misc/
