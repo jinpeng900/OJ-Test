@@ -17,6 +17,8 @@ public:
 
     void draw_login(AppState &st);
     void draw_menu(AppState &st);
+    void draw_problem_list(AppState &st);
+    void draw_problem_detail(AppState &st);
     void draw_add_problem(AppState &st);
 
 private:

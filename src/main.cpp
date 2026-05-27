@@ -86,7 +86,7 @@ int main()
         ImGui::Render();
         glfwGetFramebufferSize(window, &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
-        glClearColor(0.12f, 0.12f, 0.14f, 1.0f);
+        glClearColor(0.08f, 0.09f, 0.09f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 

@@ -44,6 +44,8 @@ inline void CenteredContent(float content_width, float content_height)
     float avail_w = ImGui::GetContentRegionAvail().x;
     float target_w = content_width * UI_SCALE;
     float max_w = avail_w * 0.7f;
+    if (max_w > 980.0f)
+        max_w = 980.0f;
     if (target_w > max_w)
         target_w = max_w;
     if (target_w < 240 * UI_SCALE)
@@ -89,6 +91,8 @@ enum class GUIState
     AI_ASSISTANT,
     ADMIN_LOGIN,
     ADMIN_MENU,
+    ADMIN_PROBLEM_LIST,
+    ADMIN_PROBLEM_DETAIL,
     ADMIN_ADD_PROBLEM,
 };
 
